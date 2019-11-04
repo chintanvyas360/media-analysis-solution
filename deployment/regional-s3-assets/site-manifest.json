@@ -1,0 +1,17 @@
+{
+    "files": [
+        "asset-manifest.json",
+        "favicon.ico",
+        "index.html",
+        "manifest.json",
+        "service-worker.js",
+        "static/css/main.01be1a85.css",
+        "static/css/main.01be1a85.css.map",
+        "static/js/main.169ae55c.js",
+        "static/js/main.169ae55c.js.map",
+        "static/media/audio.9846e00f.png",
+        "static/media/diagram.5e83724c.png",
+        "static/media/preview.700e8af2.png",
+        "static/media/video.33be89b0.png"
+    ]
+}
