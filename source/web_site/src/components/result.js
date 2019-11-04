@@ -27,6 +27,7 @@ class Result extends Component {
         celeb_boxes: [],
         face_match_boxes: [],
         face_boxes: [],
+        // label_boxes: [],
         att_list: [], //needed
         celeb_faces: [], //needed
         known_faces: [], //needed
@@ -361,10 +362,11 @@ class Result extends Component {
                                 confidence = data.Labels[l].Impressions[i].Confidence.toFixed(3);
                             }
                         }
-                        label_list.push({"Name":data.Labels[l].Name,"Confidence":confidence,"Id":[data.Labels[l].Name.replace(/[^\w\s]|_/g, " ").replace(/\s+/g, " "),uuidv4()].join('-')});
+                        label_list.push({"Name":data.Labels[l].Name,"Confidence":confidence,"Id":[data.Labels[l].Name.replace(/[^\w\s]|_/g, " ").replace(/\s+/g, " "),uuidv4()].join('-'), "Impressions": data.Labels[l].Impressions});
                     }
                     self.setState({
-                        "label_list": label_list
+                        "label_list": label_list,
+                        // "label_boxes": label_boxes,
                     });
                 }
           })
@@ -588,7 +590,7 @@ class Result extends Component {
                   <Progress animated color="warning" value="100" />
                 </ModalBody>
               </Modal>
-              <ImageResults allfaces={this.state.face_list} knownfaces={this.state.known_faces} mediafile={this.state.media_file} filename={this.state.filename} filetype={this.state.file_type} labels={labels} celebfaces={this.state.celeb_faces} attlist={this.state.att_list} />
+              <ImageResults allfaces={this.state.face_list} knownfaces={this.state.known_faces} mediafile={this.state.media_file} filename={this.state.filename} filetype={this.state.file_type} labels={labels} labels_list={this.state.label_list} celebfaces={this.state.celeb_faces} attlist={this.state.att_list} />
             </div>
 
           );

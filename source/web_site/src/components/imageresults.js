@@ -106,12 +106,104 @@ class ImageResults extends Component {
     }
   }
 
+  drawLabels(items) {
+    var div = document.getElementById("resultview");
+    var image = document.getElementById("resultimage");
+    var canvas = document.getElementById("resultcanvas");
+
+    if (canvas == null) {
+        //Canvas does not yet exist
+
+        //Create canvas
+        canvas = document.createElement('canvas');
+
+        //Configure canvas
+        canvas.id = "resultcanvas";
+        canvas.width = image.width;
+        canvas.height = image.height;
+        //canvas.style.maxWidth="750px";
+        //canvas.style.maxHeight="400px";
+        canvas.style.position = "relative";
+
+        //Draw image
+        var context = canvas.getContext('2d');
+        context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+        for (var i in items) {
+          for(var j in items[i].Impressions) {
+            for (var k in items[i].Impressions[j].Instances) {
+              let h = canvas.height * k.BoundingBox.Height;
+              let w = canvas.width * k.BoundingBox.Width;
+              let l = canvas.width * k.BoundingBox.Left;
+              let t = canvas.height * k.BoundingBox.Top;
+
+              context.beginPath();
+              context.rect(l, t, w, h);
+              context.lineWidth = 2;
+              context.strokeStyle = 'red';
+              context.stroke();
+
+              if ("Confidence" in items[i].Impressions[j].Instances) {
+                context.font = "15px Comic Sans MS";
+                context.fillStyle = "red";
+                context.fillText(items[i].Confidence.toFixed(3), l, t-2);
+              }
+            }
+          }
+        }
+
+        //Hide image
+        image.style.display='none';
+
+        //Append canvas to div
+        div.appendChild(canvas);
+
+
+    }
+    else {
+        //Canvas already exists
+
+        //Clear canvas
+        var context = canvas.getContext('2d');
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        //Draw image
+        context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+        //Draw rectangle
+
+        for (var i in items) {
+          for(var j in items[i].Impressions) {
+            for (var k in items[i].Impressions[j].Instances) {
+              let h = canvas.height * k.BoundingBox.Height;
+              let w = canvas.width * k.BoundingBox.Width;
+              let l = canvas.width * k.BoundingBox.Left;
+              let t = canvas.height * k.BoundingBox.Top;
+
+              context.beginPath();
+              context.rect(l, t, w, h);
+              context.lineWidth = 2;
+              context.strokeStyle = 'red';
+              context.stroke();
+
+              if ("Confidence" in items[i].Impressions[j].Instances) {
+                context.font = "15px Comic Sans MS";
+                context.fillStyle = "red";
+                context.fillText(items[i].Confidence.toFixed(3), l, t-2);
+              }
+            }
+          }
+        }
+    }
+  }
+
   render() {
 
     //var file_type = this.props.filetype;
     var file_name = this.props.filename;
     var media_source = this.props.mediafile;
     var labels = this.props.labels;
+    var labels_list = this.prop.labels_list;
 
 
     let atts = this.props.attlist.map(att => {
@@ -165,6 +257,7 @@ class ImageResults extends Component {
                   <Button color="primary" className="mr-2 mt-3" active onClick={() => { this.draw(all_known_faces); }}>Show Known Faces</Button>
                   <Button color="primary" className="mr-2 mt-3" active onClick={() => { this.draw(this.props.allfaces); }}>Show All Faces</Button>
                   <Button color="primary" className="mr-2 mt-3" active onClick={() => { this.draw(all_celebs); }}>Show Celebrities</Button>
+                  <Button color="primary" className="mr-2 mt-3" active onClick={() => { this.drawLabels(labels_list);}}>Show All Labels</Button>
                 </div>
                 <div align="center">
                   <Button color="secondary" className="mt-3" onClick={() => { this.draw([]); }}>Clear All</Button>
