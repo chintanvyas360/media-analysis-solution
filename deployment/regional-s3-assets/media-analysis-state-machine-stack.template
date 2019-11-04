@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: (SO0042-statemachine) chintan-media-analysis - The AWS CloudFormation template that provisions the chintan-media-analysis state machine using Amazon Step Functions. Version v1.0.0
+Description: (SO0042-statemachine) media-analysis-solution - The AWS CloudFormation template that provisions the media-analysis-solution state machine using Amazon Step Functions. Version v2.0.2
 
 Parameters:
   MediaAnalysisFunction:

@@ -132,10 +132,10 @@ class ImageResults extends Component {
         for (var i in items) {
           for(var j in items[i].Impressions) {
             for (var k in items[i].Impressions[j].Instances) {
-              let h = canvas.height * k.BoundingBox.Height;
-              let w = canvas.width * k.BoundingBox.Width;
-              let l = canvas.width * k.BoundingBox.Left;
-              let t = canvas.height * k.BoundingBox.Top;
+              let h = canvas.height * items[i].Impressions[j].Instances[k].BoundingBox.Height;
+              let w = canvas.width * items[i].Impressions[j].Instances[k].BoundingBox.Width;
+              let l = canvas.width * items[i].Impressions[j].Instances[k].BoundingBox.Left;
+              let t = canvas.height * items[i].Impressions[j].Instances[k].BoundingBox.Top;
 
               context.beginPath();
               context.rect(l, t, w, h);
@@ -143,10 +143,10 @@ class ImageResults extends Component {
               context.strokeStyle = 'red';
               context.stroke();
 
-              if ("Confidence" in items[i].Impressions[j].Instances) {
+              if ("Confidence" in items[i].Impressions[j].Instances[k]) {
                 context.font = "15px Comic Sans MS";
                 context.fillStyle = "red";
-                context.fillText(items[i].Confidence.toFixed(3), l, t-2);
+                context.fillText(items[i].Name+", "+items[i].Impressions[j].Instances[k].Confidence.toFixed(3), l, t-2);
               }
             }
           }
@@ -175,21 +175,22 @@ class ImageResults extends Component {
         for (var i in items) {
           for(var j in items[i].Impressions) {
             for (var k in items[i].Impressions[j].Instances) {
-              let h = canvas.height * k.BoundingBox.Height;
-              let w = canvas.width * k.BoundingBox.Width;
-              let l = canvas.width * k.BoundingBox.Left;
-              let t = canvas.height * k.BoundingBox.Top;
+              let h = canvas.height * items[i].Impressions[j].Instances[k].BoundingBox.Height;
+              let w = canvas.width * items[i].Impressions[j].Instances[k].BoundingBox.Width;
+              let l = canvas.width * items[i].Impressions[j].Instances[k].BoundingBox.Left;
+              let t = canvas.height * items[i].Impressions[j].Instances[k].BoundingBox.Top;
 
               context.beginPath();
               context.rect(l, t, w, h);
               context.lineWidth = 2;
               context.strokeStyle = 'red';
               context.stroke();
-
+              console.log("not working")
               if ("Confidence" in items[i].Impressions[j].Instances) {
+                console.log("went?")
                 context.font = "15px Comic Sans MS";
                 context.fillStyle = "red";
-                context.fillText(items[i].Confidence.toFixed(3), l, t-2);
+                context.fillText(items[i].Name+", "+items[i].Impressions[j].Instances[k].Confidence.toFixed(3), l, t-2);
               }
             }
           }
@@ -203,7 +204,7 @@ class ImageResults extends Component {
     var file_name = this.props.filename;
     var media_source = this.props.mediafile;
     var labels = this.props.labels;
-    var labels_list = this.prop.labels_list;
+    var labels_list = this.props.labels_list;
 
 
     let atts = this.props.attlist.map(att => {

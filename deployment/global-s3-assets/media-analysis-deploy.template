@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: (SO0042) chintan-media-analysis - The chintan-media-analysis is a serverless solution that leverages managed AWS services to automatically analyze your audio, video, and image files in order to extract valuable metadata. Version v1.0.0
+Description: (SO0042) media-analysis-solution - The media-analysis-solution is a serverless solution that leverages managed AWS services to automatically analyze your audio, video, and image files in order to extract valuable metadata. Version v2.0.2
 
 Parameters:
     Email:
@@ -45,8 +45,8 @@ Mappings:
             Data: "Yes"
     SourceCode:
         General:
-            S3Bucket: "mediaanalysis-mediaanalysiswebsitebucket-c8bei2g3yheq"
-            KeyPrefix: "chintan-media-analysis/v1.0.0"
+            S3Bucket: "solutions"
+            KeyPrefix: "media-analysis-solution/v2.0.2"
 
 Resources:
     MediaAnalysisBucket:
@@ -139,7 +139,7 @@ Resources:
         Type: AWS::CloudFront::Distribution
         Properties:
             DistributionConfig:
-                Comment: "Website distribution for chintan-media-analysis"
+                Comment: "Website distribution for media-analysis-solution"
                 Origins:
                     -
                       Id: S3-solution-website
@@ -240,7 +240,7 @@ Resources:
     MediaAnalysisHelperFunction:
         Type: AWS::Lambda::Function
         Properties:
-            Description: "AWS Lambda function to help the chintan-media-analysis template"
+            Description: "AWS Lambda function to help the media-analysis-solution template"
             Code:
                 S3Bucket: !Join ["-", [!FindInMap ["SourceCode", "General", "S3Bucket"], !Ref "AWS::Region"]]
                 S3Key: !Join ["/", [!FindInMap ["SourceCode", "General", "KeyPrefix"],  "media-analysis-helper.zip"]]
@@ -615,10 +615,10 @@ Resources:
             AdminCreateUserConfig:
                 AllowAdminCreateUserOnly: true
                 InviteMessageTemplate:
-                  EmailSubject: "Your chintan-media-analysis demo login"
+                  EmailSubject: "Your media-analysis-solution demo login"
                   EmailMessage:
                     !Sub |
-                        <p>You are invited to join the chintan-media-analysis demo page. Your credentials are:</p>
+                        <p>You are invited to join the media-analysis-solution demo page. Your credentials are:</p>
                         <p>
                         Username: <strong>{username}</strong><br />
                         Password: <strong>{####}</strong>
@@ -662,4 +662,4 @@ Outputs:
         Value: !Ref MediaAnalysisIdentityPool
     SolutionVersion:
       Description: Version Number
-      Value: v1.0.0
+      Value: v2.0.2

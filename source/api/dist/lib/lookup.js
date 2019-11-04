@@ -61,6 +61,7 @@ let lookup = (function() {
           };
 
           retrieveData(s3_params, owner_id, object_id, 'labels', page_num, function(err, data) {
+            console.log("retreive lookup")
               if (err) {
                 console.log(err);
                 return cb(err, null);
@@ -77,26 +78,29 @@ let lookup = (function() {
 
                 if ('VideoMetadata' in label_data) {
                     labels_out['MediaType'] = 'video';
+                    console.log("video label lookup")
                     for (var l in label_data.Labels) {
                         if (label_data.Labels[l].Label.Confidence >= confidence_score) {
                             if ((label_data.Labels[l].Label.Name.toLowerCase() in Labels) == false) {
                                 Labels[label_data.Labels[l].Label.Name.toLowerCase()] = {};
                                 Labels[label_data.Labels[l].Label.Name.toLowerCase()]['Name'] = label_data.Labels[l].Label.Name;
-                                Labels[label_data.Labels[l].Label.Name.toLowerCase()]['Impressions'] = [{'Timestamp':label_data.Labels[l].Timestamp,'Confidence':label_data.Labels[l].Label.Confidence, 'BoundingBox':label_data.Labels[l].BoundingBox}];
+                                Labels[label_data.Labels[l].Label.Name.toLowerCase()]['Impressions'] = [{'Timestamp':label_data.Labels[l].Timestamp,'Confidence':label_data.Labels[l].Label.Confidence, 'Instances':label_data.Labels[l].Instances}];
                             }
                             else {
-                                Labels[label_data.Labels[l].Label.Name.toLowerCase()]['Impressions'].push({'Timestamp':label_data.Labels[l].Timestamp,'Confidence':label_data.Labels[l].Label.Confidence, 'BoundingBox':label_data.Labels[l].BoundingBox});
+                                Labels[label_data.Labels[l].Label.Name.toLowerCase()]['Impressions'].push({'Timestamp':label_data.Labels[l].Timestamp,'Confidence':label_data.Labels[l].Label.Confidence, 'Instances':label_data.Labels[l].Instances});
                             }
                         }
                     }
                 }
                 else {
                     labels_out['MediaType'] = 'image';
+                    console.log("image label lookup")
+                    console.log(label_data.Labels);
                     for (var l in label_data.Labels) {
                         if (label_data.Labels[l].Confidence >= confidence_score)  {
                             Labels[label_data.Labels[l].Name.toLowerCase()] = {};
                             Labels[label_data.Labels[l].Name.toLowerCase()]['Name'] = label_data.Labels[l].Name;
-                            Labels[label_data.Labels[l].Name.toLowerCase()]['Impressions']= [{'Timestamp':null, 'Confidence':label_data.Labels[l].Confidence, 'BoundingBox':label_data.Labels[l].BoundingBox}];
+                            Labels[label_data.Labels[l].Name.toLowerCase()]['Impressions']= [{'Timestamp':null, 'Confidence':label_data.Labels[l].Confidence, 'Instances':label_data.Labels[l].Instances}];
                         }
                     }
                 }

@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: (SO0042-api) chintan-media-analysis - The AWS CloudFormation template that provisions the chintan-media-analysis RESTful API using Amazon API Gateway. Version v1.0.0
+Description: (SO0042-api) media-analysis-solution - The AWS CloudFormation template that provisions the media-analysis-solution RESTful API using Amazon API Gateway. Version v2.0.2
 
 Parameters:
     StateMachineArn:
@@ -18,8 +18,8 @@ Parameters:
 Mappings:
     SourceCode:
         General:
-            S3Bucket: 'mediaanalysis-mediaanalysiswebsitebucket-c8bei2g3yheq'
-            KeyPrefix: "chintan-media-analysis/v1.0.0"
+            S3Bucket: 'solutions'
+            KeyPrefix: "media-analysis-solution/v2.0.2"
 
 Resources:
     MediaAnalysisApiPermission:
