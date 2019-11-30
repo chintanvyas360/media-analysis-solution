@@ -17,18 +17,18 @@ Amplify.configure({
     identityPoolId: media_analysis_config.SOLUTION_IDENTITYPOOLID
   },
   Storage: {
-        bucket: media_analysis_config.SOLUTION_BUCKET,
-        region: media_analysis_config.SOLUTION_REGION,
-        identityPoolId: media_analysis_config.SOLUTION_IDENTITYPOOLID
-    },
+    bucket: media_analysis_config.SOLUTION_BUCKET,
+    region: media_analysis_config.SOLUTION_REGION,
+    identityPoolId: media_analysis_config.SOLUTION_IDENTITYPOOLID
+  },
   API: {
-      endpoints: [
-        {
-            name: "VizonAnalysisApi",
-            region: media_analysis_config.SOLUTION_REGION,
-            endpoint: media_analysis_config.SOLUTION_ENDPOINT
-        }
-      ]
+    endpoints: [
+      {
+        name: "VizonAnalysisApi",
+        region: media_analysis_config.SOLUTION_REGION,
+        endpoint: media_analysis_config.SOLUTION_ENDPOINT
+      }
+    ]
   }
 });
 
@@ -61,12 +61,12 @@ class App extends Component {
             </Navbar>
             <hr />
             <Switch>
-                <Route exact path='/' component={Home} />
-                <Route path='/home' component={Home} />
-                <Route path='/upload' component={Upload} />
-                <Route path='/browse' component={Browse} />
-                <Route path='/settings' component={Settings} />
-                <Route path='/result/:objectid' component={Result} />
+              <Route exact path='/' component={Home} />
+              <Route path='/home' component={Home} />
+              <Route path='/upload' component={Upload} />
+              <Route path='/browse' component={Browse} />
+              <Route path='/settings' component={Settings} />
+              <Route path='/result/:objectid' component={Result} />
             </Switch>
           </div>
         </Router>
