@@ -19,13 +19,13 @@ describe('Lookup', function() {
                 {
                     LastModified: "datetime",
                     StorageClass: "STANDARD",
-                    Key: "private/us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74/media/33451416-a313-4d30-ae23-82da4cb3c89d/results/labels.json",
+                    Key: "private/us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74/vizon/33451416-a313-4d30-ae23-82da4cb3c89d/results/labels.json",
                     Size: 77055
                 },
                 {
                     LastModified: "datetime",
                     StorageClass: "STANDARD",
-                    Key: "private/us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74/media/33451416-a313-4d30-ae23-82da4cb3c89d/results/labels2.json",
+                    Key: "private/us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74/vizon/33451416-a313-4d30-ae23-82da4cb3c89d/results/labels2.json",
                     Size: 87232
                 }
             ]
@@ -36,7 +36,7 @@ describe('Lookup', function() {
                 {
                     LastModified: "datetime",
                     StorageClass: "STANDARD",
-                    Key: "private/us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74/media/33451416-a313-4d30-ae23-82da4cb3c89d/results/labels.json",
+                    Key: "private/us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74/vizon/33451416-a313-4d30-ae23-82da4cb3c89d/results/labels.json",
                     Size: 77055
                 }
             ]
@@ -73,7 +73,7 @@ describe('Lookup', function() {
                 else {
                     assert.isUndefined(data.Next);
                     assert.equal(data.Labels.length,1);
-                    assert.equal(data.s3.key,['private',owner_id,'media',object_id,'results','labels.json'].join('/'));
+                    assert.equal(data.s3.key,['private',owner_id,'vizon',object_id,'results','labels.json'].join('/'));
                     assert.equal(data.MediaType,'image');
                     done();
                 }
@@ -123,7 +123,7 @@ describe('Lookup', function() {
                     assert.equal(data.Labels.length,2);
                     assert.equal(data.Next,2);
                     assert.equal(data.Labels[0].Impressions.length,2);
-                    assert.equal(data.s3.key,['private',owner_id,'media',object_id,'results','labels.json'].join('/'));
+                    assert.equal(data.s3.key,['private',owner_id,'vizon',object_id,'results','labels.json'].join('/'));
                     assert.equal(data.MediaType,'video');
                     done();
                 }
@@ -199,7 +199,7 @@ describe('Lookup', function() {
                 else {
                     assert.isUndefined(data.Next);
                     assert.equal(data.Celebs.length,1);
-                    assert.equal(data.s3.key,['private',owner_id,'media',object_id,'results','celebs.json'].join('/'));
+                    assert.equal(data.s3.key,['private',owner_id,'vizon',object_id,'results','celebs.json'].join('/'));
                     assert.equal(data.MediaType,'image');
                     done();
                 }
@@ -273,7 +273,7 @@ describe('Lookup', function() {
                     assert.equal(data.Next,2);
                     assert.equal(data.Celebs.length,2);
                     assert.equal(data.Celebs[0].Impressions.length,2);
-                    assert.equal(data.s3.key,['private',owner_id,'media',object_id,'results','celebs.json'].join('/'));
+                    assert.equal(data.s3.key,['private',owner_id,'vizon',object_id,'results','celebs.json'].join('/'));
                     assert.equal(data.MediaType,'video');
                     done();
                 }
@@ -360,7 +360,7 @@ describe('Lookup', function() {
                     assert.isUndefined(data.Next);
                     assert.equal(data.Attributes.length,11);
                     assert.equal(data.Faces.length,1);
-                    assert.equal(data.s3.key,['private',owner_id,'media',object_id,'results','faces.json'].join('/'));
+                    assert.equal(data.s3.key,['private',owner_id,'vizon',object_id,'results','faces.json'].join('/'));
                     assert.equal(data.MediaType,'image');
                     done();
                 }
@@ -515,7 +515,7 @@ describe('Lookup', function() {
                     assert.equal(data.Next,2);
                     assert.equal(data.Attributes.length,13);
                     assert.equal(data.Attributes[0].Impressions.length,2);
-                    assert.equal(data.s3.key,['private',owner_id,'media',object_id,'results','faces.json'].join('/'));
+                    assert.equal(data.s3.key,['private',owner_id,'vizon',object_id,'results','faces.json'].join('/'));
                     assert.equal(data.MediaType,'video');
                     done();
                 }
@@ -580,7 +580,7 @@ describe('Lookup', function() {
                 else {
                     assert.isUndefined(data.Next);
                     assert.equal(data.FaceMatches.length,2);
-                    assert.equal(data.s3.key,['private',owner_id,'media',object_id,'results','face_matches.json'].join('/'));
+                    assert.equal(data.s3.key,['private',owner_id,'vizon',object_id,'results','face_matches.json'].join('/'));
                     assert.equal(data.MediaType,'image');
                     done();
                 }
@@ -717,7 +717,7 @@ describe('Lookup', function() {
                     assert.equal(data.Next,2);
                     assert.equal(data.FaceMatches.length,2);
                     assert.equal(data.FaceMatches[0].Impressions.length,2);
-                    assert.equal(data.s3.key,['private',owner_id,'media',object_id,'results','face_matches.json'].join('/'));
+                    assert.equal(data.s3.key,['private',owner_id,'vizon',object_id,'results','face_matches.json'].join('/'));
                     assert.equal(data.MediaType,'video');
                     done();
                 }
@@ -761,7 +761,7 @@ describe('Lookup', function() {
                 else {
                     assert.isUndefined(data.Next);
                     assert.equal(data.Entities.length,2);
-                    assert.equal(data.s3.key,['private',owner_id,'media',object_id,'results','entities.json'].join('/'));
+                    assert.equal(data.s3.key,['private',owner_id,'vizon',object_id,'results','entities.json'].join('/'));
                     done();
                 }
             });
@@ -802,7 +802,7 @@ describe('Lookup', function() {
                 else {
                     assert.isUndefined(data.Next);
                     assert.equal(data.Phrases.length,2);
-                    assert.equal(data.s3.key,['private',owner_id,'media',object_id,'results','phrases.json'].join('/'));
+                    assert.equal(data.s3.key,['private',owner_id,'vizon',object_id,'results','phrases.json'].join('/'));
                     done();
                 }
             });
@@ -868,7 +868,7 @@ describe('Lookup', function() {
                 else {
                     assert.isUndefined(data.Next);
                     assert.equal(data.Transcripts[0].Transcript,"This is a transcript");
-                    assert.equal(data.s3.key,['private',owner_id,'media',object_id,'results','transcript.json'].join('/'));
+                    assert.equal(data.s3.key,['private',owner_id,'vizon',object_id,'results','transcript.json'].join('/'));
                     done();
                 }
             });
@@ -935,7 +935,7 @@ describe('Lookup', function() {
                     assert.isUndefined(data.Next);
                     assert.equal(data.Captions.length,4);
                     assert.equal(data.Captions[0].Timestamp,230);
-                    assert.equal(data.s3.key,['private',owner_id,'media',object_id,'results','transcript.json'].join('/'));
+                    assert.equal(data.s3.key,['private',owner_id,'vizon',object_id,'results','transcript.json'].join('/'));
                     done();
                 }
             });
@@ -1003,7 +1003,7 @@ describe('Lookup', function() {
                 else {
                     assert.equal(data.Next,2);
                     assert.equal(JSON.stringify(data.Persons),JSON.stringify(persons_raw));
-                    assert.equal(data.s3.key,['private',owner_id,'media',object_id,'results','persons.json'].join('/'));
+                    assert.equal(data.s3.key,['private',owner_id,'vizon',object_id,'results','persons.json'].join('/'));
                     done();
                 }
             });

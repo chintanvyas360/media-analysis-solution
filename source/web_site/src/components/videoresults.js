@@ -191,7 +191,7 @@ class VideoResults extends Component {
 
     var file_type = this.props.filetype;
 
-    //BUGFIX/media-analysis-35 mp4 and mov results are the same, removing if (mov) {}
+    //BUGFIX/vizon-analysis-35 mp4 and mov results are the same, removing if (mov) {}
       //var self = this;
       var file_name = this.props.filename;
       var media_source = this.props.mediafile;

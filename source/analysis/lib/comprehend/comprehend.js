@@ -78,7 +78,7 @@ const confidence_score = parseInt(process.env.CONFIDENCE_SCORE);
                     'ErrorList': []
                   };
 
-                  let entity_key = ['private',transcript_info.owner_id,'media',transcript_info.object_id,'results','entities.json'].join('/');
+                  let entity_key = ['private',transcript_info.owner_id,'vizon',transcript_info.object_id,'results','entities.json'].join('/');
 
                   let s3_params = {
                       Bucket: s3Bucket,
@@ -133,7 +133,7 @@ const confidence_score = parseInt(process.env.CONFIDENCE_SCORE);
                             }
 
 
-                            let entity_key = ['private',transcript_info.owner_id,'media',transcript_info.object_id,'results','entities.json'].join('/');
+                            let entity_key = ['private',transcript_info.owner_id,'vizon',transcript_info.object_id,'results','entities.json'].join('/');
 
                             let s3_params = {
                                 Bucket: s3Bucket,
@@ -199,7 +199,7 @@ const confidence_score = parseInt(process.env.CONFIDENCE_SCORE);
                       'ErrorList': []
                     };
 
-                    let phrase_key = ['private',transcript_info.owner_id,'media',transcript_info.object_id,'results','phrases.json'].join('/');
+                    let phrase_key = ['private',transcript_info.owner_id,'vizon',transcript_info.object_id,'results','phrases.json'].join('/');
 
                    let s3_params = {
                        Bucket: s3Bucket,
@@ -254,7 +254,7 @@ const confidence_score = parseInt(process.env.CONFIDENCE_SCORE);
                                  phrase_array.push(sorted_phrases[s][0].toLowerCase());
                              }
 
-                             let phrase_key = ['private',transcript_info.owner_id,'media',transcript_info.object_id,'results','phrases.json'].join('/');
+                             let phrase_key = ['private',transcript_info.owner_id,'vizon',transcript_info.object_id,'results','phrases.json'].join('/');
 
                              let s3_params = {
                                  Bucket: s3Bucket,

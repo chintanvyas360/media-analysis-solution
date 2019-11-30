@@ -9,15 +9,15 @@ let Steps = require('./steps.js');
 
 describe('Steps', function() {
     let event_info = {
-        Records: [{"eventSource":"media-analysis"}],
-        key: "private/us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74/media/33451416-a313-4d30-ae23-82da4cb3c89d/content/image.png",
+        Records: [{"eventSource":"vizon-analysis"}],
+        key: "private/us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74/vizon/33451416-a313-4d30-ae23-82da4cb3c89d/content/image.png",
         file_type: "png",
         owner_id: "us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74",
         object_id: "33451416-a313-4d30-ae23-82da4cb3c89d"
     };
 
     let state_machine_response = {
-        executionArn: "arn:aws:states:us-east-1:xxxxxxxxxxxx:execution:media-analysis-state-machine:33451416-a313-4d30-ae23-82da4cb3c89d"
+        executionArn: "arn:aws:states:us-east-1:xxxxxxxxxxxx:execution:vizon-analysis-state-machine:33451416-a313-4d30-ae23-82da4cb3c89d"
     };
 
     describe('#startStateMachine', function() {
@@ -38,7 +38,7 @@ describe('Steps', function() {
             _steps.startStateMachine(event_info, function(err, data) {
                 if (err) done(err);
                 else {
-                    assert.equal(data.executionArn, ["arn:aws:states:us-east-1:xxxxxxxxxxxx:execution:media-analysis-state-machine",event_info.object_id].join(':'));
+                    assert.equal(data.executionArn, ["arn:aws:states:us-east-1:xxxxxxxxxxxx:execution:vizon-analysis-state-machine",event_info.object_id].join(':'));
                     done();
                 }
             });

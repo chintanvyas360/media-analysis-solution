@@ -1,0 +1,8 @@
+source/analysis/dist/
+source/analysis/node_modules/
+source/api/node_modules/
+source/api/dist/
+source/helper/dist/
+source/helper/node_modules/
+source/web_site/build/
+source/web_site/node_modules/

@@ -10,14 +10,14 @@ let Upload = require('./upload.js');
 describe('Upload', function() {
     let event_info = {
         Bucket: 's3-bucket-name',
-        Key: "private/us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74/media/33451416-a313-4d30-ae23-82da4cb3c89d/results/entities.json",
+        Key: "private/us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74/vizon/33451416-a313-4d30-ae23-82da4cb3c89d/results/entities.json",
         Body: "{ ResultList: [ { Index: 0, Entities: [{ Score: 0.98,Type: 'PERSON',Text: 'name',BeginOffset: 27,EndOffset: 32 }] } ],ErrorList: [] }",
         ContentType: 'application/json'
     };
 
     let upload_response = {
         Bucket: 's3-bucket-name',
-        Key: "private/us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74/media/33451416-a313-4d30-ae23-82da4cb3c89d/results/entities.json"
+        Key: "private/us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74/vizon/33451416-a313-4d30-ae23-82da4cb3c89d/results/entities.json"
     };
 
     describe('#uploadFile', function() {

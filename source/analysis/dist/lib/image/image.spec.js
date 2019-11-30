@@ -12,7 +12,7 @@ describe('Image', function() {
     let event_info = {
       "owner_id": "us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74",
       "object_id": "33451416-a313-4d30-ae23-82da4cb3c89d",
-      "key": "private/us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74/media/33451416-a313-4d30-ae23-82da4cb3c89d/content/image.png",
+      "key": "private/us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74/vizon/33451416-a313-4d30-ae23-82da4cb3c89d/content/image.png",
       "file_type": "png"
     };
 

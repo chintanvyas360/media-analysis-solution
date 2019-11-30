@@ -65,7 +65,7 @@ class Browse extends Component {
 
 		let requestParams = {};
 
-    API.get('MediaAnalysisApi', path, requestParams)
+    API.get('VizonAnalysisApi', path, requestParams)
       .then (function(response) {
         //console.log(response);
         if(response.Items !== 0) {

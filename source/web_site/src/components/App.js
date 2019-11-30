@@ -24,7 +24,7 @@ Amplify.configure({
   API: {
       endpoints: [
         {
-            name: "MediaAnalysisApi",
+            name: "VizonAnalysisApi",
             region: media_analysis_config.SOLUTION_REGION,
             endpoint: media_analysis_config.SOLUTION_ENDPOINT
         }

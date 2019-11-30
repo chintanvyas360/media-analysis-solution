@@ -71,7 +71,7 @@ cd "$source_dir/analysis" || exit
 npm install
 npm run build
 npm run zip
-cp "./dist/media-analysis-function.zip" "$build_dist_dir/media-analysis-function.zip"
+cp "./dist/vizon-analysis-function.zip" "$build_dist_dir/vizon-analysis-function.zip"
 
 echo "------------------------------------------------------------------------------"
 echo "API Function"
@@ -81,7 +81,7 @@ cd "$source_dir/api" || exit
 npm install
 npm run build
 npm run zip
-cp "./dist/media-analysis-api.zip" "$build_dist_dir/media-analysis-api.zip"
+cp "./dist/vizon-analysis-api.zip" "$build_dist_dir/vizon-analysis-api.zip"
 
 echo "------------------------------------------------------------------------------"
 echo "Helper Function"
@@ -91,7 +91,7 @@ cd "$source_dir/helper" || exit
 npm install
 npm run build
 npm run zip
-cp "./dist/media-analysis-helper.zip" "$build_dist_dir/media-analysis-helper.zip"
+cp "./dist/vizon-analysis-helper.zip" "$build_dist_dir/vizon-analysis-helper.zip"
 
 echo "------------------------------------------------------------------------------"
 echo "Website"

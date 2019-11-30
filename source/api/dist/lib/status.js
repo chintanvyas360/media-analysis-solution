@@ -37,7 +37,7 @@ let status = (function() {
 
     /**
      * Gets status of state machine tasks
-     * @param {string} object_id - UUID of the media being analyzed.
+     * @param {string} object_id - UUID of the vizon being analyzed.
      * @param {string} owner_id - Media owner's Cognito identity ID.
      * @param {getStatus~requestCallback} cb - The callback that handles the response.
      */

@@ -1,6 +1,6 @@
 {
-  "name": "media-analysis-demo-website",
-  "description": "A minimal website to demonstrate the Media Analysis Solution.",
+  "name": "vizon-analysis-demo-website",
+  "description": "A minimal website to demonstrate the Vizon Analysis Solution.",
   "author": {
     "name": "aws-solutions-builder"
   },

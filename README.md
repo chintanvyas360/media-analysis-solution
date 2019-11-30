@@ -1,11 +1,11 @@
-# Media Analysis Solution
+# Vizon Analysis Solution
 The increasing maturity and growing availability of machine learning (ML) algorithms and artificial intelligence (AI) services have unlocked new frontiers in analytics across several forms of media. Through the use of AI tools and services, it is possible to detect objects, recognize faces, transcribe and analyze audio, and much more. Advancements in deep learning algorithms and AI tooling have enabled developers and analysts to efficiently extract valuable data from multimedia sources, but can still require a great deal of time and effort to train ML models as well as maintain supporting infrastructure.
 
 AWS offers several managed AI services, such as Amazon Rekognition, Amazon Transcribe, and Amazon Comprehend, that offer immediate insights into image, video, and audio files. By combining these services with Amazon's managed storage and compute services, customers can quickly and easily build intelligent applications that inform and enable many use cases across a variety of fields, including public safety and security, media and entertainment, advertising and social media, etc.
 
-The Media Analysis Solution is a turnkey reference implementation that helps customers start analyzing their media files using serverless, managed AI services. The Media Analysis Solution uses highly available, highly scalable, and highly accurate AWS-native services to automatically extract valuable metadata from audio, image, and video files.
+The Vizon Analysis Solution is a turnkey reference implementation that helps customers start analyzing their media files using serverless, managed AI services. The Vizon Analysis Solution uses highly available, highly scalable, and highly accurate AWS-native services to automatically extract valuable metadata from audio, image, and video files.
 
-For more information and a detailed deployment guide visit the Media Analysis Solution at https://aws.amazon.com/answers/media-entertainment/media-analysis-solution/.
+For more information and a detailed deployment guide visit the Vizon Analysis Solution at https://aws.amazon.com/answers/media-entertainment/vizon-analysis-solution/.
 
 ## Running unit tests for customization
 * Clone the repository, then make the desired code changes
@@ -31,19 +31,19 @@ _Note (old note):_ You would have to create an S3 bucket with the prefix 'my-buc
 * Now build the distributable:
 ```
 chmod +x ./build-s3-dist.sh
-./build-s3-dist.sh $DIST_OUTPUT_BUCKET media-analysis-solution $VERSION
+./build-s3-dist.sh $DIST_OUTPUT_BUCKET vizon-analysis-solution $VERSION
 ```
 
 * Deploy the distributable to an Amazon S3 bucket in your account. _Note:_ you must have the AWS Command Line Interface installed.
 ```
-aws s3 cp ./dist/ s3://my-bucket-name-<aws_region>/media-analysis-solution/<my-version>/ --recursive --acl bucket-owner-full-control --profile aws-cred-profile-name
+aws s3 cp ./dist/ s3://my-bucket-name-<aws_region>/vizon-analysis-solution/<my-version>/ --recursive --acl bucket-owner-full-control --profile aws-cred-profile-name
 ```
 
-* Get the link of the media-analysis-deploy.template uploaded to your Amazon S3 bucket.
-* Deploy the Media Analysis Solution to your account by launching a new AWS CloudFormation stack using the link of the media-analysis-deploy.template.
+* Get the link of the vizon-analysis-deploy.template uploaded to your Amazon S3 bucket.
+* Deploy the Vizon Analysis Solution to your account by launching a new AWS CloudFormation stack using the link of the vizon-analysis-deploy.template.
 
 ## File Structure
-The Media Analysis Solution consists of a demo website, an analysis orchestration layer, a search and storage layer, and an API layer.
+The Vizon Analysis Solution consists of a demo website, an analysis orchestration layer, a search and storage layer, and an API layer.
 * The demo website is a React application that leverages AWS Amplify to interact with Amazon S3, Amazon API Gateway, and Amazon Cognito.
 * The analysis orchestration layer is an AWS Step Functions state machine that coordinates metadata extraction from Amazon AI services.
 * The search and storage layer uses Amazon Elasticsearch to index extracted metadata and handle search requests.
@@ -55,10 +55,10 @@ The Media Analysis Solution consists of a demo website, an analysis orchestratio
   |-buildspecs/                             [ solutions builder pipeline build specifications ]
   |-build-s3-dist.sh                        [ shell script for packaging distribution assets ]
   |-run-unit-tests.sh                       [ shell script for executing unit tests ]
-  |-media-analysis-deploy.yaml              [ solution CloudFormation deployment template ]
-  |-media-analysis-api-stack.yaml           [ solution CloudFormation template for deploying API services ]
-  |-media-analysis-storage-stack.yaml       [ solution CloudFormation template for deploying storage services ]
-  |-media-analysis-state-machine-stack.yaml [ solution CloudFormation template for deploying state machine ]
+  |-vizon-analysis-deploy.yaml              [ solution CloudFormation deployment template ]
+  |-vizon-analysis-api-stack.yaml           [ solution CloudFormation template for deploying API services ]
+  |-vizon-analysis-storage-stack.yaml       [ solution CloudFormation template for deploying storage services ]
+  |-vizon-analysis-state-machine-stack.yaml [ solution CloudFormation template for deploying state machine ]
 |-source/
   |-analysis/                               [ microservices for orchestrating media analysis ]
     |-lib/

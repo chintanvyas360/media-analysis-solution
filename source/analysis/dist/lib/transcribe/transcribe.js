@@ -171,7 +171,7 @@ const s3Bucket = process.env.S3_BUCKET;
                       status: 'MP4 FAILED'
                     };
                     let transcript_json = mp4_failed_transcript;
-                    let transcript_key = ['private',event_info.owner_id,'media',event_info.object_id,'results','transcript.json'].join('/');
+                    let transcript_key = ['private',event_info.owner_id,'vizon',event_info.object_id,'results','transcript.json'].join('/');
                     let s3_params = {
                         Bucket: s3Bucket,
                         Key: transcript_key,
@@ -196,7 +196,7 @@ const s3Bucket = process.env.S3_BUCKET;
                         }
                         else {
                           let transcript_json = JSON.parse(body);
-                          let transcript_key = ['private',event_info.owner_id,'media',event_info.object_id,'results','transcript.json'].join('/');
+                          let transcript_key = ['private',event_info.owner_id,'vizon',event_info.object_id,'results','transcript.json'].join('/');
                           let s3_params = {
                               Bucket: s3Bucket,
                               Key: transcript_key,

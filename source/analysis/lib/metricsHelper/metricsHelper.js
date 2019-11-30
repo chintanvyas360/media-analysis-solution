@@ -20,7 +20,7 @@
 let https = require('https');
 
 /**
- * Helper function to send anonymous information about media files analyzed
+ * Helper function to send anonymous information about vizon files analyzed
  *
  * @class metricsHelper
  */
@@ -33,7 +33,7 @@ let metricsHelper = (function() {
     let metricsHelper = function() {};
 
     /**
-     * Sends anonymous data about the media file analyzed
+     * Sends anonymous data about the vizon file analyzed
      * @param {JSON} anonymous_metric - anonymous information about the analysis
      * @param {sendAnonymousMetric~requestCallback} cb - The callback that handles the response.
      */

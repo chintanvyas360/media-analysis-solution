@@ -128,7 +128,7 @@ class Upload extends Component {
 
 
         let uuid = uuidv4();
-        let filename = ['media',uuid,'content',[this.state.file.name.split('.').slice(0,-1).join('.'),file_ext].join('.')].join("/");
+        let filename = ['vizon',uuid,'content',[this.state.file.name.split('.').slice(0,-1).join('.'),file_ext].join('.')].join("/");
 
         Storage.put(filename, this.state.file, {
             level: 'private',
@@ -188,7 +188,7 @@ class Upload extends Component {
           "media_file": preview,
           "media_type": "image",
           'error': true,
-          'error_msg': 'File previews are limited to 100MB or less for this demo page. Please upload file direclty to media analysis S3 bucket using the following naming convention: private/<Cognito Identity ID>/media/<UUID v4>/content/filename.ext'
+          'error_msg': 'File previews are limited to 100MB or less for this demo page. Please upload file direclty to vizon analysis S3 bucket using the following naming convention: private/<Cognito Identity ID>/vizon/<UUID v4>/content/filename.ext'
         });
       }
     }
@@ -232,9 +232,9 @@ class Upload extends Component {
         </Modal>
         <Row>
           <Col xs="6">
-              <h1 className="display-6" align="center">Analyze new Media</h1>
+              <h1 className="display-6" align="center">Analyze new Vizon</h1>
               <hr className="my-2" />
-              <p className="lead" align="center">Upload new image, video, or audio file to be analyzed by the Media Analysis Solution</p>
+              <p className="lead" align="center">Upload new image, video, or audio file to be analyzed by the Vizon Analysis Solution</p>
               <div>
                 {media_type === "image" &&
                   <img src={media_file} className="img-fluid border" alt="preview"/>
@@ -252,13 +252,13 @@ class Upload extends Component {
               <div className="mt-3 mb-3">
                 <Form onSubmit={this.Upload}>
                   <div className="form-inline">
-                    <Button type="submit" disabled={this.state.file === ''}>Upload Media</Button>
+                    <Button type="submit" disabled={this.state.file === ''}>Upload Vizon</Button>
                       <FormGroup className="mr-sm-2 ml-sm-4">
                         <Input name="mediafilename" type="text" disabled placeholder={this.state.file.name} />
                       </FormGroup>
                   </div>
                   <FormText color="muted">
-                    Media will be uploaded with the same name
+                    Vizon will be uploaded with the same name
                   </FormText>
                   <FormGroup className="mt-3">
                       <Input type="file" accept="image/png, image/jpeg, audio/mp3, audio/flac, audio/wav, video/quicktime, video/mp4" name="file" value={this.file} onChange={this.Change} />

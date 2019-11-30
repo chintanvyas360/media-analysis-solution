@@ -10,8 +10,8 @@ let MediaConvert = require('./media-convert.js');
 describe('MediaConvert', function() {
 
   let state = {
-    Records: [{"eventSource":"media-analysis"}],
-    key: "private/us-east-1:xxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/media/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/content/example.mp4",
+    Records: [{"eventSource":"vizon-analysis"}],
+    key: "private/us-east-1:xxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/vizon/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/content/example.mp4",
     file_type: "mp4",
     owner_id: "us-east-1:xxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
     object_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
@@ -29,7 +29,7 @@ describe('MediaConvert', function() {
       "CreatedAt": "2018-08-12T12:00:00.000Z",
       "Id": "1111111111-xxxxxxx",
       "Queue": "arn:aws:mediaconvert:us-east-1:11111111111:queues/Default",
-      "Role": "arn:aws:iam::11111111111:role/MediaConvertRole",
+      "Role": "arn:aws:iam::11111111111:role/VizonRole",
       "Settings": {
         "OutputGroups": [{
           "Outputs": [{
@@ -50,7 +50,7 @@ describe('MediaConvert', function() {
           "CreatedAt": "2018-08-12T12:00:00.000Z",
           "Id": "1111111111-xxxxxxx",
           "Queue": "arn:aws:mediaconvert:us-east-1:11111111111:queues/Default",
-          "Role": "arn:aws:iam::11111111111:role/MediaConvertRole",
+          "Role": "arn:aws:iam::11111111111:role/VizonRole",
           "Settings": {
             "OutputGroups": [{
               "Outputs": [{
@@ -71,7 +71,7 @@ describe('MediaConvert', function() {
           "CreatedAt": "2018-08-12T12:00:00.000Z",
           "Id": "1111111111-xxxxxxx",
           "Queue": "arn:aws:mediaconvert:us-east-1:11111111111:queues/Default",
-          "Role": "arn:aws:iam::11111111111:role/MediaConvertRole",
+          "Role": "arn:aws:iam::11111111111:role/VizonRole",
           "Settings": {
             "OutputGroups": [{
               "Outputs": [{
@@ -140,8 +140,8 @@ describe('MediaConvert', function() {
       AWS.mock('MediaConvert', 'getJob', Promise.resolve(get_job_response_progressing));
 
       let state_after_mediaconvert_start = {
-        Records: [{"eventSource":"media-analysis"}],
-        key: "private/us-east-1:xxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/media/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/content/example.mp4",
+        Records: [{"eventSource":"vizon-analysis"}],
+        key: "private/us-east-1:xxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/vizon/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/content/example.mp4",
         file_type: "mp4",
         owner_id: "us-east-1:xxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
         object_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
@@ -169,8 +169,8 @@ describe('MediaConvert', function() {
       AWS.mock('MediaConvert', 'getJob', Promise.resolve(get_job_response_complete));
 
       let state_after_mediaconvert_complete = {
-        Records: [{"eventSource":"media-analysis"}],
-        key: "private/us-east-1:xxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/media/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/content/example.mp4",
+        Records: [{"eventSource":"vizon-analysis"}],
+        key: "private/us-east-1:xxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/vizon/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/content/example.mp4",
         file_type: "mp4",
         owner_id: "us-east-1:xxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
         object_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
@@ -187,7 +187,7 @@ describe('MediaConvert', function() {
         else {
           expect(data.mediaConvert.status).to.equal('COMPLETE');
           //expect(data.key).to.not.equal(state.key);
-          expect(data.key).to.equal("mediaconvert/private/us-east-1:xxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/media/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/content/example_audio.mp4");
+          expect(data.key).to.equal("mediaconvert/private/us-east-1:xxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/vizon/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/content/example_audio.mp4");
           done();
         }
       })

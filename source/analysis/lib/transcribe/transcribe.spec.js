@@ -9,8 +9,8 @@ let Transcribe = require('./transcribe.js');
 
 describe('Transcribe', function() {
     let event_info = {
-        Records: [{"eventSource":"media-analysis"}],
-        key: "private/us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74/media/33451416-a313-4d30-ae23-82da4cb3c89d/content/audio.mp3",
+        Records: [{"eventSource":"vizon-analysis"}],
+        key: "private/us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74/vizon/33451416-a313-4d30-ae23-82da4cb3c89d/content/audio.mp3",
         file_type: "mp3",
         owner_id: "us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74",
         object_id: "33451416-a313-4d30-ae23-82da4cb3c89d"
@@ -136,7 +136,7 @@ describe('Transcribe', function() {
               jobName: [event_info.object_id,'transcription'].join('_')
             };
 
-            event_info.key = "private/us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74/media/33451416-a313-4d30-ae23-82da4cb3c89d/content/video.mp4";
+            event_info.key = "private/us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74/vizon/33451416-a313-4d30-ae23-82da4cb3c89d/content/video.mp4";
             event_info.file_type = "mp4";
             get_status_response.TranscriptionJob.TranscriptionJobStatus = "FAILED";
 
@@ -188,7 +188,7 @@ describe('Transcribe', function() {
             _transcribe.getResults(event_info, function(err, data) {
                 if (err) done(err);
                 else {
-                    assert.equal(data.key, ['private',event_info.owner_id,'media',event_info.object_id,'results','transcript.json'].join("/"));
+                    assert.equal(data.key, ['private',event_info.owner_id,'vizon',event_info.object_id,'results','transcript.json'].join("/"));
                     done();
                 }
             });
@@ -202,7 +202,7 @@ describe('Transcribe', function() {
               status: 'MP4 FAILED'
             };
 
-            event_info.key = "private/us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74/media/33451416-a313-4d30-ae23-82da4cb3c89d/content/video.mp4";
+            event_info.key = "private/us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74/vizon/33451416-a313-4d30-ae23-82da4cb3c89d/content/video.mp4";
             event_info.file_type = "mp4";
             get_status_response.TranscriptionJob.TranscriptionJobStatus = "FAILED";
 
@@ -218,7 +218,7 @@ describe('Transcribe', function() {
             _transcribe.getResults(event_info, function(err, data) {
                 if (err) done(err);
                 else {
-                    assert.equal(data.key, ['private',event_info.owner_id,'media',event_info.object_id,'results','transcript.json'].join("/"));
+                    assert.equal(data.key, ['private',event_info.owner_id,'vizon',event_info.object_id,'results','transcript.json'].join("/"));
                     done();
                 }
             });

@@ -43,7 +43,7 @@ let MediaConvert = (function() {
 
       let pathArray = state.key.split('/');
       /**
-      BUGFIX/media-analysis-35:: move Mediconvert output to a different directory to avoid triggering step functions.
+      BUGFIX/vizon-analysis-35:: move Mediconvert output to a different directory to avoid triggering step functions.
       content is uploaded to s3://<bucvket>/private/ moving mc output to s3://<bucket>/mediaconvert/
       */
       let destinationPath = 'mediaconvert/'+pathArray.slice(0, pathArray.length -1).join('/');
@@ -55,7 +55,7 @@ let MediaConvert = (function() {
           "UserMetadata": {
             "SolutionID": process.env.SOLUTIONID
           },
-          "Role": process.env.MEDIACONVERT_ROLE,
+          "Role": process.env.VIZON_ROLE,
           "Settings": {
             "OutputGroups": [{
               "Name": "File Group",
@@ -189,7 +189,7 @@ let MediaConvert = (function() {
           response.mediaConvert.status = data.Job.Status;
 
           /*
-           BUGFIX/media-analysis-35:: move Mediconvert output to a different directory to avoid triggering step functions.
+           BUGFIX/vizon-analysis-35:: move Mediconvert output to a different directory to avoid triggering step functions.
           content is uploaded to s3://<bucvket>/private/ moving mc output to s3://<bucket>/mediaconvert/
           new key is now handdled by transcribe.js
           */

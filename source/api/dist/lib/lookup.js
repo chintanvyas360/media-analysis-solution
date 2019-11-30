@@ -38,7 +38,7 @@ let lookup = (function() {
 
     /**
      * Retrieves detailed information on the requested metadata
-     * @param {string} object_id - uuid of the media object
+     * @param {string} object_id - uuid of the vizon object
      * @param {string} lookup_type - type of metadata you're retrieving
      * @param {string} owner_id - cognitoIdentityId of the requester
      * @param {int} page_num - result page number requested
@@ -57,7 +57,7 @@ let lookup = (function() {
 
           let s3_params = {
             Bucket: s3Bucket,
-            Key: ['private',owner_id,'media',object_id,'results',filename].join('/')
+            Key: ['private',owner_id,'vizon',object_id,'results',filename].join('/')
           };
 
           retrieveData(s3_params, owner_id, object_id, 'labels', page_num, function(err, data) {
@@ -70,7 +70,7 @@ let lookup = (function() {
                 console.log('Building label data output');
                 let label_data = JSON.parse(data.Body.toString('utf-8'));
                 let Labels = {};
-                let labels_out = {'s3':{'bucket':s3Bucket,'key':['private',owner_id,'media',object_id,'results',filename].join('/')}, 'Labels':[]};
+                let labels_out = {'s3':{'bucket':s3Bucket,'key':['private',owner_id,'vizon',object_id,'results',filename].join('/')}, 'Labels':[]};
 
                 if (data.Next) {
                     labels_out['Next'] = data.Next;
@@ -120,7 +120,7 @@ let lookup = (function() {
 
           let s3_params = {
             Bucket: s3Bucket,
-            Key: ['private',owner_id,'media',object_id,'results',filename].join('/')
+            Key: ['private',owner_id,'vizon',object_id,'results',filename].join('/')
           };
 
           retrieveData(s3_params, owner_id, object_id, 'celebs', page_num, function(err, data) {
@@ -132,7 +132,7 @@ let lookup = (function() {
                 console.log('Building celeb data output');
                 let celeb_data = JSON.parse(data.Body.toString('utf-8'));
                 let Celebs = {};
-                let celebs_out = {'s3':{'bucket':s3Bucket,'key':['private',owner_id,'media',object_id,'results',filename].join('/')}, 'Celebs':[]};
+                let celebs_out = {'s3':{'bucket':s3Bucket,'key':['private',owner_id,'vizon',object_id,'results',filename].join('/')}, 'Celebs':[]};
 
                 if (data.Next) {
                     celebs_out['Next'] = data.Next;
@@ -186,7 +186,7 @@ let lookup = (function() {
 
           let s3_params = {
             Bucket: s3Bucket,
-            Key: ['private',owner_id,'media',object_id,'results',filename].join('/')
+            Key: ['private',owner_id,'vizon',object_id,'results',filename].join('/')
           };
 
           retrieveData(s3_params, owner_id, object_id, 'faces', page_num, function(err, data) {
@@ -199,7 +199,7 @@ let lookup = (function() {
                 let face_data = JSON.parse(data.Body.toString('utf-8'));
                 let Faces = {};
                 let FaceBox = {};
-                let faces_out = {'s3':{'bucket':s3Bucket,'key':['private',owner_id,'media',object_id,'results',filename].join('/')}, 'Attributes':[], 'Faces':[]};
+                let faces_out = {'s3':{'bucket':s3Bucket,'key':['private',owner_id,'vizon',object_id,'results',filename].join('/')}, 'Attributes':[], 'Faces':[]};
 
                 if (data.Next) {
                     faces_out['Next'] = data.Next;
@@ -389,7 +389,7 @@ let lookup = (function() {
 
           let s3_params = {
             Bucket: s3Bucket,
-            Key: ['private',owner_id,'media',object_id,'results',filename].join('/')
+            Key: ['private',owner_id,'vizon',object_id,'results',filename].join('/')
           };
 
           retrieveData(s3_params, owner_id, object_id, 'face_matches', page_num, function(err, data) {
@@ -401,7 +401,7 @@ let lookup = (function() {
                 console.log('Building face match data output');
                 let face_match_data = JSON.parse(data.Body.toString('utf-8'));
                 let FaceMatches = {};
-                let face_match_out = {'s3':{'bucket':s3Bucket,'key':['private',owner_id,'media',object_id,'results',filename].join('/')}, 'FaceMatches':[]};
+                let face_match_out = {'s3':{'bucket':s3Bucket,'key':['private',owner_id,'vizon',object_id,'results',filename].join('/')}, 'FaceMatches':[]};
 
                 if (data.Next) {
                     face_match_out['Next'] = data.Next;
@@ -457,7 +457,7 @@ let lookup = (function() {
 
           let s3_params = {
             Bucket: s3Bucket,
-            Key: ['private',owner_id,'media',object_id,'results','entities.json'].join('/')
+            Key: ['private',owner_id,'vizon',object_id,'results','entities.json'].join('/')
           };
 
           retrieveData(s3_params, owner_id, object_id, 'entities', page_num, function(err, data) {
@@ -469,7 +469,7 @@ let lookup = (function() {
                 console.log('Building entity data output');
                 let entity_data = JSON.parse(data.Body.toString('utf-8'));
                 let Entities = {};
-                let entities_out = {'s3':{'bucket':s3Bucket,'key':['private',owner_id,'media',object_id,'results','entities.json'].join('/')}, 'Entities':[]};
+                let entities_out = {'s3':{'bucket':s3Bucket,'key':['private',owner_id,'vizon',object_id,'results','entities.json'].join('/')}, 'Entities':[]};
 
                 for (var r in entity_data.ResultList) {
                     for (var e in entity_data.ResultList[r].Entities) {
@@ -492,7 +492,7 @@ let lookup = (function() {
 
           let s3_params = {
             Bucket: s3Bucket,
-            Key: ['private',owner_id,'media',object_id,'results','phrases.json'].join('/')
+            Key: ['private',owner_id,'vizon',object_id,'results','phrases.json'].join('/')
           };
 
           retrieveData(s3_params, owner_id, object_id, 'phrases', page_num, function(err, data) {
@@ -504,7 +504,7 @@ let lookup = (function() {
                 console.log('Building phrase data output');
                 let phrase_data = JSON.parse(data.Body.toString('utf-8'));
                 let Phrases = {};
-                let phrases_out = {'s3':{'bucket':s3Bucket,'key':['private',owner_id,'media',object_id,'results','phrases.json'].join('/')}, 'Phrases':[]};
+                let phrases_out = {'s3':{'bucket':s3Bucket,'key':['private',owner_id,'vizon',object_id,'results','phrases.json'].join('/')}, 'Phrases':[]};
 
                 for (var r in phrase_data.ResultList) {
                     for (var p in phrase_data.ResultList[r].KeyPhrases) {
@@ -526,7 +526,7 @@ let lookup = (function() {
 
           let s3_params = {
             Bucket: s3Bucket,
-            Key: ['private',owner_id,'media',object_id,'results','transcript.json'].join('/')
+            Key: ['private',owner_id,'vizon',object_id,'results','transcript.json'].join('/')
           };
 
           retrieveData(s3_params, owner_id, object_id, 'transcript', page_num, function(err, data) {
@@ -537,7 +537,7 @@ let lookup = (function() {
               else {
                 console.log('Building transcript data output');
                 let transcript_data = JSON.parse(data.Body.toString('utf-8'));
-                let transcript_out = {'s3':{'bucket':s3Bucket,'key':['private',owner_id,'media',object_id,'results','transcript.json'].join('/')}, 'Transcripts':[]};
+                let transcript_out = {'s3':{'bucket':s3Bucket,'key':['private',owner_id,'vizon',object_id,'results','transcript.json'].join('/')}, 'Transcripts':[]};
 
                 for (var t in transcript_data.results.transcripts) {
                     transcript_out.Transcripts.push({'Transcript':transcript_data.results.transcripts[t].transcript});
@@ -550,7 +550,7 @@ let lookup = (function() {
 
           let s3_params = {
             Bucket: s3Bucket,
-            Key: ['private',owner_id,'media',object_id,'results','transcript.json'].join('/')
+            Key: ['private',owner_id,'vizon',object_id,'results','transcript.json'].join('/')
           };
 
           retrieveData(s3_params, owner_id, object_id, 'captions', page_num, function(err, data) {
@@ -561,7 +561,7 @@ let lookup = (function() {
               else {
                 console.log('Building captioning output');
                 let captions_data = JSON.parse(data.Body.toString('utf-8'));
-                let captions_out = {'s3':{'bucket':s3Bucket,'key':['private',owner_id,'media',object_id,'results','transcript.json'].join('/')}, 'Captions':[]};
+                let captions_out = {'s3':{'bucket':s3Bucket,'key':['private',owner_id,'vizon',object_id,'results','transcript.json'].join('/')}, 'Captions':[]};
 
                 for (var i in captions_data.results.items) {
                     if (captions_data.results.items[i].type == 'pronunciation') {
@@ -590,7 +590,7 @@ let lookup = (function() {
 
           let s3_params = {
             Bucket: s3Bucket,
-            Key: ['private',owner_id,'media',object_id,'results',filename].join('/')
+            Key: ['private',owner_id,'vizon',object_id,'results',filename].join('/')
           };
 
           retrieveData(s3_params, owner_id, object_id, 'persons', page_num, function(err, data) {
@@ -601,7 +601,7 @@ let lookup = (function() {
               else {
                   console.log('Building person focusing data output');
                   let persons_data = JSON.parse(data.Body.toString('utf-8'));
-                  let persons_out = {'s3':{'bucket':s3Bucket,'key':['private',owner_id,'media',object_id,'results',filename].join('/')}, 'Persons':persons_data};
+                  let persons_out = {'s3':{'bucket':s3Bucket,'key':['private',owner_id,'vizon',object_id,'results',filename].join('/')}, 'Persons':persons_data};
 
                   if (data.Next) {
                       persons_out['Next'] = data.Next;
@@ -617,7 +617,7 @@ let lookup = (function() {
       * Gets result from S3
       * @param {JSON} params - location of the result file
       * @param {string} owner_id - cognitoIdentityId of the requester
-      * @param {string} object_id - uuid of the media object
+      * @param {string} object_id - uuid of the vizon object
       * @param {string} data_type - S3 object  requested
       * @param {int} page_num - result page number requested
       * @param {retrieveData~callback} cb - The callback that handles the response.
@@ -633,7 +633,7 @@ let lookup = (function() {
             else {
               let next_params = {
                   Bucket: s3Bucket,
-                  Prefix: ['private',owner_id,'media',object_id,'results',data_type].join('/')
+                  Prefix: ['private',owner_id,'vizon',object_id,'results',data_type].join('/')
               };
               s3.listObjects(next_params, function(error, result) {
                   if (error) {

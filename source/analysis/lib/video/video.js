@@ -204,7 +204,7 @@ const s3Bucket = process.env.S3_BUCKET;
                             Persons: []
                         };
 
-                        let face_match_key = ['private',video_info.owner_id,'media',video_info.object_id,'results','face_matches.json'].join('/');
+                        let face_match_key = ['private',video_info.owner_id,'vizon',video_info.object_id,'results','face_matches.json'].join('/');
 
                         let s3_params = {
                            Bucket: s3Bucket,

@@ -8,7 +8,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
-            "url": "http://mediaanalysis-mediaanalysiswebsitebucket-c8bei2g3yheq.s3-website-us-east-1.amazonaws.com",
+            "url": "http://vizonanalysis-vizonanalysiswebsitebucket-c8bei2g3yheq.s3-website-us-east-1.amazonaws.com",
             "webRoot": "${workspaceFolder}"
         }
     ]

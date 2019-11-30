@@ -39,7 +39,7 @@ let search = (function() {
     let search = function() {};
 
     /**
-     * Performs search on media analysis elasticsearch cluster using the
+     * Performs search on vizon analysis elasticsearch cluster using the
      * keyword terms provided.
      * @param {string} search_term - Keyword terms to search.
      * @param {string} page_num - Search for term in this field.

@@ -47,7 +47,7 @@ class StatusModal extends Component {
 
       var interval = setInterval(function(){ getStateMachineStatus() },5000);
       function getStateMachineStatus() {
-          API.get('MediaAnalysisApi', path, requestParams)
+          API.get('VizonAnalysisApi', path, requestParams)
             .then(function(response) {
               //console.log(response);
 
@@ -150,7 +150,7 @@ class StatusModal extends Component {
       else if (this.props.format === "png" || this.props.format === "jpg" || this.props.format === "jpeg") {
           return(
             <div>
-              <ModalHeader toggle={this.toggle}>Media Analysis Progress</ModalHeader>
+              <ModalHeader toggle={this.toggle}>Vizon Analysis Progress</ModalHeader>
               <ModalBody>
                 <div>State Machine Progress</div>
                 <Progress animated color={this.state.state_machine_color} value={this.state.state_machine_value} />
@@ -178,7 +178,7 @@ class StatusModal extends Component {
       else if (this.props.format === "mp3" || this.props.format === "wav" || this.props.format === "wave" || this.props.format === "flac") {
           return(
             <div>
-              <ModalHeader toggle={this.toggle}>Media Analysis Progress</ModalHeader>
+              <ModalHeader toggle={this.toggle}>Vizon Analysis Progress</ModalHeader>
               <ModalBody>
                 <div>State Machine Progress</div>
                 <Progress animated color={this.state.state_machine_color} value={this.state.state_machine_value} />
@@ -201,11 +201,11 @@ class StatusModal extends Component {
             </div>
           );
       }
-      //BUGFIX/media-analysis-35 mov and mp4 resoults are the same removing if (mp4) {}
+      //BUGFIX/vizon-analysis-35 mov and mp4 resoults are the same removing if (mp4) {}
       else if (this.props.format === "mp4" || this.props.format === "mov" ) {
           return(
             <div>
-              <ModalHeader toggle={this.toggle}>Media Analysis Progress</ModalHeader>
+              <ModalHeader toggle={this.toggle}>Vizon Analysis Progress</ModalHeader>
               <ModalBody>
                 <div>State Machine Progress</div>
                 <Progress animated color={this.state.state_machine_color} value={this.state.state_machine_value} />

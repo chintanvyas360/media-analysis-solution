@@ -32,7 +32,7 @@ describe('Collection', function() {
             ExternalImageId: 'Name',
             Image: {
                 S3Object: {
-                    Bucket: 'media-analysis-sample-bucket',
+                    Bucket: 'vizon-analysis-sample-bucket',
                     Name: 'private/us-east-1:0bae584a-6bdb-48da-a553-47105c568bba/collection/509c6a59-082d-41b5-b3e2-67f1dd9219b4/Name'
                 }
             }

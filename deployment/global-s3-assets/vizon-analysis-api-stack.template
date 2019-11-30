@@ -1,0 +1,412 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: (SO0042-api) vizon-analysis - The AWS CloudFormation template that provisions the vizon-analysis RESTful API using Amazon API Gateway. Version v1.0.0
+
+Parameters:
+    StateMachineArn:
+        Type: String
+        Description: "ARN of the solution state machine"
+    DomainEndpoint:
+        Type: String
+        Description: "ElasticSearch cluster domain endpoint"
+    DomainVersion:
+        Type: String
+        Description: "ElasticSearch cluster domain version"
+    S3Bucket:
+        Type: String
+        Description: "Name of the solution S3 Bucket"
+
+Mappings:
+    SourceCode:
+        General:
+            S3Bucket: 'vizon-analysis'
+            KeyPrefix: "vizon-analysis/v1.0.0"
+
+Resources:
+    VizonAnalysisApiPermission:
+        Type: AWS::Lambda::Permission
+        Properties:
+            Action: lambda:InvokeFunction
+            FunctionName: !GetAtt VizonAnalysisApiFunction.Arn
+            Principal: apigateway.amazonaws.com
+            SourceArn: !Join ["", ["arn:aws:execute-api:", Ref: "AWS::Region", ":", Ref: "AWS::AccountId", ":", Ref: VizonAnalysisRestApi, "/prod/*/*/*"]]
+
+    VizonAnalysisApiFunction:
+        Type: AWS::Lambda::Function
+        Properties:
+            Description: "AWS Lambda function to handle API requests"
+            Code:
+                S3Bucket: !Join ["-", [!FindInMap ["SourceCode", "General", "S3Bucket"], !Ref "AWS::Region"]]
+                S3Key: !Join ["/", [!FindInMap ["SourceCode", "General", "KeyPrefix"],  "vizon-analysis-api.zip"]]
+            Handler: index.handler
+            Runtime: nodejs8.10
+            Role: !GetAtt VizonAnalysisApiRole.Arn
+            Timeout: 60
+            MemorySize: 256
+            Environment:
+                Variables:
+                    CONFIDENCE_SCORE: '0'
+                    DOMAIN_ENDPOINT: !Ref DomainEndpoint
+                    ES_INDEX: vizon-analysis
+                    ES_VERSION: !Ref DomainVersion
+                    S3_BUCKET: !Ref S3Bucket
+                    STATE_MACHINE: !Ref StateMachineArn
+                    SEARCH_RESULT_LIMIT: '30'
+
+    VizonAnalysisApiRole:
+        Type: AWS::IAM::Role
+        Metadata:
+            cfn_nag:
+                rules_to_suppress:
+                    - id: W11
+                      reason: Allow * in the ARN of the resources deployed by this solution.
+        Properties:
+            AssumeRolePolicyDocument:
+              Version: "2012-10-17"
+              Statement:
+                -
+                  Effect: "Allow"
+                  Principal:
+                    Service:
+                      - "lambda.amazonaws.com"
+                  Action:
+                    - "sts:AssumeRole"
+            Path: /
+            Policies:
+              -
+                PolicyName: vizon-analysis-api-policy
+                PolicyDocument:
+                    Version: "2012-10-17"
+                    Statement:
+                      -
+                        Effect: "Allow"
+                        Action:
+                          - "es:ESHttpGet"
+                          - "es:ESHttpPost"
+                        # Wildcards on ElasticSearch domain resources are
+                        # present because documents are indexed based off of
+                        # the Step Function job ID, which is unique per
+                        # invocation.
+                        Resource:
+                          - !Join ["", ["arn:aws:es:", Ref: "AWS::Region", ":", Ref: "AWS::AccountId", ":domain/vizon-analysis/*"]]
+                      -
+                        Effect: "Allow"
+                        Action:
+                          - "s3:GetObject"
+                          - "s3:ListObjects"
+                          - "s3:ListBucket"
+                        Resource:
+                          - !Join ["", ["arn:aws:s3:::", "vizon-analysis-", Ref: "AWS::Region", "-", Ref: "AWS::AccountId", "/*"]]
+                          - !Join ["", ["arn:aws:s3:::", "vizon-analysis-", Ref: "AWS::Region", "-", Ref: "AWS::AccountId"]]
+                      -
+                        Effect: "Allow"
+                        Action:
+                          - "states:DescribeExecution"
+                          - "states:GetExecutionHistory"
+                        Resource:
+                          - !Join [":", ["arn:aws:states", Ref: "AWS::Region", Ref: "AWS::AccountId", "execution", "vizon-analysis-state-machine", "*"]]
+                      -
+                        Effect: "Allow"
+                        Action:
+                          - "logs:CreateLogGroup"
+                          - "logs:CreateLogStream"
+                          - "logs:PutLogEvents"
+                        Resource: !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/*
+
+    DeployVizonAnalysisAPI:
+      Type: "AWS::ApiGateway::Deployment"
+      Properties:
+        RestApiId: !Ref VizonAnalysisRestApi
+        StageName: prod
+
+    VizonAnalysisLambdaExecRole:
+        Type: "AWS::IAM::Role"
+        Properties:
+            AssumeRolePolicyDocument:
+                Version: "2012-10-17"
+                Statement:
+                    -
+                        Effect: "Allow"
+                        Principal:
+                            Service:
+                                - "apigateway.amazonaws.com"
+                        Action:
+                                - "sts:AssumeRole"
+            Path: "/"
+            Policies:
+              -
+                PolicyName: !Join ["-", ["vizon-analysis-apigw-policy", Ref: "AWS::Region" ]]
+                PolicyDocument:
+                    Version: "2012-10-17"
+                    Statement:
+                        -
+                            Effect: "Allow"
+                            Action:
+                                - "lambda:InvokeFunction"
+                            Resource:
+                                - !GetAtt VizonAnalysisApiFunction.Arn
+
+    VizonAnalysisRestApi:
+        Type: AWS::ApiGateway::RestApi
+        Properties:
+            Body:
+                swagger: "2.0"
+                info:
+                  version: "2017-02-18T14:57:27Z"
+                  title: "vizon-analysis-api"
+                basePath: "/prod"
+                schemes:
+                - "https"
+                paths:
+                  /details/{object_id}:
+                    get:
+                      produces:
+                      - "application/json"
+                      parameters:
+                      - name: "object_id"
+                        in: "path"
+                        required: true
+                        type: "string"
+                      responses:
+                        "200":
+                          description: "200 response"
+                          schema:
+                            $ref: "#/definitions/Empty"
+                          headers:
+                            Access-Control-Allow-Origin:
+                              type: "string"
+                      security:
+                      - sigv4: []
+                      x-amazon-apigateway-integration:
+                        uri: !Join ["", ["arn:aws:apigateway:", Ref: "AWS::Region",":lambda:path/2015-03-31/functions/", !GetAtt VizonAnalysisApiFunction.Arn, "/invocations"]]
+                        responses:
+                          default:
+                            statusCode: "200"
+                            responseParameters:
+                              method.response.header.Access-Control-Allow-Origin: "'*'"
+                        passthroughBehavior: "when_no_match"
+                        httpMethod: "POST"
+                        contentHandling: "CONVERT_TO_TEXT"
+                        type: "aws_proxy"
+                    options:
+                      consumes:
+                      - "application/json"
+                      produces:
+                      - "application/json"
+                      responses:
+                        "200":
+                          description: "200 response"
+                          schema:
+                            $ref: "#/definitions/Empty"
+                          headers:
+                            Access-Control-Allow-Origin:
+                              type: "string"
+                            Access-Control-Allow-Methods:
+                              type: "string"
+                            Access-Control-Allow-Headers:
+                              type: "string"
+                      x-amazon-apigateway-integration:
+                        responses:
+                          default:
+                            statusCode: "200"
+                            responseParameters:
+                              method.response.header.Access-Control-Allow-Methods: "'GET,OPTIONS'"
+                              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+                              method.response.header.Access-Control-Allow-Origin: "'*'"
+                        requestTemplates:
+                          application/json: "{\"statusCode\":200}"
+                        passthroughBehavior: "when_no_match"
+                        type: "mock"
+
+                  /lookup/{object_id+}:
+                    options:
+                      consumes:
+                      - "application/json"
+                      produces:
+                      - "application/json"
+                      responses:
+                        "200":
+                          description: "200 response"
+                          schema:
+                            $ref: "#/definitions/Empty"
+                          headers:
+                            Access-Control-Allow-Origin:
+                              type: "string"
+                            Access-Control-Allow-Methods:
+                              type: "string"
+                            Access-Control-Allow-Headers:
+                              type: "string"
+                      x-amazon-apigateway-integration:
+                        responses:
+                          default:
+                            statusCode: "200"
+                            responseParameters:
+                              method.response.header.Access-Control-Allow-Methods: "'GET,OPTIONS'"
+                              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+                              method.response.header.Access-Control-Allow-Origin: "'*'"
+                        requestTemplates:
+                          application/json: "{\"statusCode\": 200}"
+                        passthroughBehavior: "when_no_match"
+                        type: "mock"
+                    get:
+                      produces:
+                      - "application/json"
+                      parameters:
+                      - name: "object_id"
+                        in: "path"
+                        required: true
+                        type: "string"
+                      responses:
+                        "200":
+                          description: "200 response"
+                          schema:
+                            $ref: "#/definitions/Empty"
+                          headers:
+                            Access-Control-Allow-Origin:
+                              type: "string"
+                      security:
+                      - sigv4: []
+                      x-amazon-apigateway-integration:
+                        uri: !Join ["", ["arn:aws:apigateway:", Ref: "AWS::Region",":lambda:path/2015-03-31/functions/", !GetAtt VizonAnalysisApiFunction.Arn, "/invocations"]]
+                        responses:
+                          default:
+                            statusCode: "200"
+                            responseParameters:
+                              method.response.header.Access-Control-Allow-Origin: "'*'"
+                        passthroughBehavior: "when_no_match"
+                        httpMethod: "POST"
+                        contentHandling: "CONVERT_TO_TEXT"
+                        type: "aws_proxy"
+
+                  /status/{object_id}:
+                    options:
+                      consumes:
+                      - "application/json"
+                      produces:
+                      - "application/json"
+                      responses:
+                        "200":
+                          description: "200 response"
+                          schema:
+                            $ref: "#/definitions/Empty"
+                          headers:
+                            Access-Control-Allow-Origin:
+                              type: "string"
+                            Access-Control-Allow-Methods:
+                              type: "string"
+                            Access-Control-Allow-Headers:
+                              type: "string"
+                      x-amazon-apigateway-integration:
+                        responses:
+                          default:
+                            statusCode: "200"
+                            responseParameters:
+                              method.response.header.Access-Control-Allow-Methods: "'GET,OPTIONS'"
+                              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+                              method.response.header.Access-Control-Allow-Origin: "'*'"
+                        requestTemplates:
+                          application/json: "{\"statusCode\": 200}"
+                        passthroughBehavior: "when_no_match"
+                        type: "mock"
+                    get:
+                      produces:
+                      - "application/json"
+                      parameters:
+                      - name: "object_id"
+                        in: "path"
+                        required: true
+                        type: "string"
+                      responses:
+                        "200":
+                          description: "200 response"
+                          schema:
+                            $ref: "#/definitions/Empty"
+                          headers:
+                            Access-Control-Allow-Origin:
+                              type: "string"
+                      security:
+                      - sigv4: []
+                      x-amazon-apigateway-integration:
+                        uri: !Join ["", ["arn:aws:apigateway:", Ref: "AWS::Region",":lambda:path/2015-03-31/functions/", !GetAtt VizonAnalysisApiFunction.Arn, "/invocations"]]
+                        responses:
+                          default:
+                            statusCode: "200"
+                            responseParameters:
+                              method.response.header.Access-Control-Allow-Origin: "'*'"
+                        passthroughBehavior: "when_no_match"
+                        httpMethod: "POST"
+                        contentHandling: "CONVERT_TO_TEXT"
+                        type: "aws_proxy"
+
+                  /search:
+                    get:
+                      produces:
+                      - "application/json"
+                      responses:
+                        "200":
+                          description: "200 response"
+                          schema:
+                            $ref: "#/definitions/Empty"
+                          headers:
+                            Access-Control-Allow-Origin:
+                              type: "string"
+                      security:
+                      - sigv4: []
+                      x-amazon-apigateway-integration:
+                        credentials: !GetAtt VizonAnalysisLambdaExecRole.Arn
+                        uri: !Join ["", ["arn:aws:apigateway:", Ref: "AWS::Region",":lambda:path/2015-03-31/functions/", !GetAtt VizonAnalysisApiFunction.Arn, "/invocations"]]
+                        responses:
+                          default:
+                            statusCode: "200"
+                            responseParameters:
+                              method.response.header.Access-Control-Allow-Origin: "'*'"
+                        passthroughBehavior: "when_no_match"
+                        httpMethod: "POST"
+                        contentHandling: "CONVERT_TO_TEXT"
+                        type: "aws_proxy"
+                    options:
+                      consumes:
+                      - "application/json"
+                      produces:
+                      - "application/json"
+                      responses:
+                        "200":
+                          description: "200 response"
+                          schema:
+                            $ref: "#/definitions/Empty"
+                          headers:
+                            Access-Control-Allow-Origin:
+                              type: "string"
+                            Access-Control-Allow-Methods:
+                              type: "string"
+                            Access-Control-Allow-Headers:
+                              type: "string"
+                      x-amazon-apigateway-integration:
+                        responses:
+                          default:
+                            statusCode: "200"
+                            responseParameters:
+                              method.response.header.Access-Control-Allow-Methods: "'GET,OPTIONS'"
+                              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+                              method.response.header.Access-Control-Allow-Origin: "'*'"
+                        requestTemplates:
+                          application/json: "{\"statusCode\": 200}"
+                        passthroughBehavior: "when_no_match"
+                        type: "mock"
+                securityDefinitions:
+                  sigv4:
+                    type: "apiKey"
+                    name: "Authorization"
+                    in: "header"
+                    x-amazon-apigateway-authtype: "awsSigv4"
+                definitions:
+                  Empty:
+                    type: "object"
+                    title: "Empty Schema"
+
+Outputs:
+    ApiId:
+        Description: "Id of Vizon Analysis API"
+        Value: !Ref VizonAnalysisRestApi
+    ApiExecutionArn:
+        Description: "ARN of the Vizon Analysis API Lambda function"
+        Value: !GetAtt VizonAnalysisApiFunction.Arn

@@ -39,21 +39,21 @@ module.exports.respond = function(event, cb) {
       let media_formats = ['mov','mp4','jpeg','jpg','png','wav','wave','mp3','flac'];
 
       /**
-       *  New media uploaded to be analyzed.
+       *  New vizon uploaded to be analyzed.
        *  Don't start state machine for metadata upload.
        */
        
-      // 02/05/2019 - SIM:media-analysis-6 - handle media with no extension
+      // 02/05/2019 - SIM:vizon-analysis-6 - handle vizon with no extension
       if (media_key.split('/')[4] == 'content' && !media_formats.includes(media_key.split('.').pop())){
-          //console.log('unsupported media extension');
-          return cb('unsupported media extension', null);
+          //console.log('unsupported vizon extension');
+          return cb('unsupported vizon extension', null);
       }  
       
       if (media_key.split('/')[4] == 'content' && media_formats.includes(media_key.split('.').pop())) {
-          console.log('New media uploaded:', JSON.stringify(event, null, 2));
+          console.log('New vizon uploaded:', JSON.stringify(event, null, 2));
 
           let event_info = {
-              Records: [{"eventSource":"media-analysis"}],
+              Records: [{"eventSource":"vizon-analysis"}],
               upload_time: event.Records[0].eventTime,
               key: media_key,
               file_type: media_key.split('.').pop(),
@@ -107,7 +107,7 @@ module.exports.respond = function(event, cb) {
     * Triggered by Step Functions state machine task
     */
 
-   else if (event.Records[0].eventSource == 'media-analysis') {
+   else if (event.Records[0].eventSource == 'vizon-analysis') {
 
         /**
          * Initial state, merge default ai_options.<type> with the payload

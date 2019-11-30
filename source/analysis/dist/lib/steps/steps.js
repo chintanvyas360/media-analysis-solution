@@ -24,7 +24,7 @@ let uuid = require('uuid')
 const stateMachine = process.env.STATE_MACHINE;
 
 /**
- * Starts media analysis using
+ * Starts vizon analysis using
  * Amazon Step Functions.
  *
  * @class steps
@@ -39,8 +39,8 @@ const stateMachine = process.env.STATE_MACHINE;
     let steps = function() {};
 
     /**
-     * Starts media analysis state machine
-     * @param {JSON} event_info - information about the media to be analyzed
+     * Starts vizon analysis state machine
+     * @param {JSON} event_info - information about the vizon to be analyzed
      * @param {startStateMachine~callback} cb - The callback that handles the response.
      */
 
@@ -55,7 +55,7 @@ const stateMachine = process.env.STATE_MACHINE;
         let step = new AWS.StepFunctions();
         step.startExecution(params, function(err, data) {
             if (err) {
-              //BUGFIX/media-analysis-35 adding a repeat step in if the exectuion id already exsits
+              //BUGFIX/vizon-analysis-35 adding a repeat step in if the exectuion id already exsits
               if (err.code === 'ExecutionAlreadyExists') {
                 params.name = uuid.v4()
                 step.startExecution(params, function(err, data) {

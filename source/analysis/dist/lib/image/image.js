@@ -74,7 +74,7 @@ const confidence_score = parseInt(process.env.CONFIDENCE_SCORE);
                    }
                 }
 
-                let label_key = ['private',image_info.owner_id,'media',image_info.object_id,'results','labels.json'].join('/');
+                let label_key = ['private',image_info.owner_id,'vizon',image_info.object_id,'results','labels.json'].join('/');
 
                 let s3_params = {
                     Bucket: s3Bucket,
@@ -133,7 +133,7 @@ const confidence_score = parseInt(process.env.CONFIDENCE_SCORE);
                     }
                  }
 
-                 let celeb_key = ['private',image_info.owner_id,'media',image_info.object_id,'results','celebs.json'].join('/');
+                 let celeb_key = ['private',image_info.owner_id,'vizon',image_info.object_id,'results','celebs.json'].join('/');
 
                  let s3_params = {
                      Bucket: s3Bucket,
@@ -241,7 +241,7 @@ const confidence_score = parseInt(process.env.CONFIDENCE_SCORE);
                       }
                   }
 
-                  let face_key = ['private',image_info.owner_id,'media',image_info.object_id,'results','faces.json'].join('/');
+                  let face_key = ['private',image_info.owner_id,'vizon',image_info.object_id,'results','faces.json'].join('/');
 
                   let s3_params = {
                       Bucket: s3Bucket,
@@ -296,7 +296,7 @@ const confidence_score = parseInt(process.env.CONFIDENCE_SCORE);
                             FaceMatches: []
                           };
 
-                          let face_match_key = ['private',image_info.owner_id,'media',image_info.object_id,'results','face_matches.json'].join('/');
+                          let face_match_key = ['private',image_info.owner_id,'vizon',image_info.object_id,'results','face_matches.json'].join('/');
 
                           let s3_params = {
                              Bucket: s3Bucket,
@@ -331,7 +331,7 @@ const confidence_score = parseInt(process.env.CONFIDENCE_SCORE);
                           }
                       }
 
-                       let face_match_key = ['private',image_info.owner_id,'media',image_info.object_id,'results','face_matches.json'].join('/');
+                       let face_match_key = ['private',image_info.owner_id,'vizon',image_info.object_id,'results','face_matches.json'].join('/');
 
                        let s3_params = {
                            Bucket: s3Bucket,
@@ -360,7 +360,7 @@ const confidence_score = parseInt(process.env.CONFIDENCE_SCORE);
                 FaceMatches: []
               };
 
-              let face_match_key = ['private',image_info.owner_id,'media',image_info.object_id,'results','face_matches.json'].join('/');
+              let face_match_key = ['private',image_info.owner_id,'vizon',image_info.object_id,'results','face_matches.json'].join('/');
 
               let s3_params = {
                  Bucket: s3Bucket,

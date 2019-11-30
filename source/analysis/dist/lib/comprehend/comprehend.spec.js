@@ -58,7 +58,7 @@ describe('Comprehend', function() {
         "object_id": "33451416-a313-4d30-ae23-82da4cb3c89d",
         "results": {
           "transcript": {
-            "key": "private/us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74/media/33451416-a313-4d30-ae23-82da4cb3c89d/results/transcript.json",
+            "key": "private/us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74/vizon/33451416-a313-4d30-ae23-82da4cb3c89d/results/transcript.json",
             "status": "COMPLETE"
           }
         }

@@ -62,10 +62,10 @@ class Result extends Component {
     self.setState({
         downloading: true
     });
-    API.get('MediaAnalysisApi', path, requestParams)
+    API.get('VizonAnalysisApi', path, requestParams)
       .then(function(response) {
 
-        var filepath = ['media',response.object_id,'content',response.details.filename].join('/');
+        var filepath = ['vizon',response.object_id,'content',response.details.filename].join('/');
         Storage.get(filepath,{level: 'private'})
         .then(function(file) {
           self.setState({
@@ -89,7 +89,7 @@ class Result extends Component {
             self.getFaces();
             self.getFaceMatches();
         }
-        //BUGFIX/media-analysis-35 mp4 and mov results are the same, removing if (mov) {}
+        //BUGFIX/vizon-analysis-35 mp4 and mov results are the same, removing if (mov) {}
         else if ( response.details.file_type === 'mp4' || response.details.file_type === 'mov' ) {
             self.getCelebs();
             self.getLabels();
@@ -128,7 +128,7 @@ class Result extends Component {
     var face_video = {};
 
     let _getFaces = function(path, faces, atts) {
-        API.get('MediaAnalysisApi', path, {})
+        API.get('VizonAnalysisApi', path, {})
           .then(function(result) {
               for (var f in result.Faces) {
                   faces.push(result.Faces[f]);
@@ -215,7 +215,7 @@ class Result extends Component {
     var person_focusing = {};
 
     let _getPersons = function(path, persons) {
-        API.get('MediaAnalysisApi', path, {})
+        API.get('VizonAnalysisApi', path, {})
           .then(function(result) {
               persons = persons.concat(result.Persons.Persons);
               if (result.hasOwnProperty('Next')) {
@@ -258,7 +258,7 @@ class Result extends Component {
     var video_known_face_list = [];
 
     let _getFaceMatches = function(path, face_matches) {
-        API.get('MediaAnalysisApi', path, {})
+        API.get('VizonAnalysisApi', path, {})
           .then(function(result) {
               for (var f in result.FaceMatches) {
                   if (face_matches.hasOwnProperty(result.FaceMatches[f].ExternalImageId) == false) {
@@ -336,7 +336,7 @@ class Result extends Component {
     var label_list = [];
 
     let _getLabels = function(path, labels) {
-        API.get('MediaAnalysisApi', path, {})
+        API.get('VizonAnalysisApi', path, {})
           .then(function(result) {
               for (var l in result.Labels) {
                     if (labels.hasOwnProperty(result.Labels[l].Name) == false) {
@@ -381,7 +381,7 @@ class Result extends Component {
     var self = this;
     var video_captions = {};
     var captions_path = ['/lookup',this.props.match.params.objectid,'captions'].join('/');
-    API.get('MediaAnalysisApi', captions_path, {})
+    API.get('VizonAnalysisApi', captions_path, {})
       .then(function(data) {
           var ts = 0;
           for (var c in data.Captions) {
@@ -415,7 +415,7 @@ class Result extends Component {
     var video_celeb_faces = {};
 
     let _getCelebs = function(path, celebs) {
-        API.get('MediaAnalysisApi', path, {})
+        API.get('VizonAnalysisApi', path, {})
           .then(function(result) {
               for (var c in result.Celebs) {
                   if (celebs.hasOwnProperty(result.Celebs[c].Id) == false) {
@@ -481,7 +481,7 @@ class Result extends Component {
   getTranscript() {
     var self = this;
     var transcript_path = ['/lookup',this.props.match.params.objectid,'transcript'].join('/');
-    API.get('MediaAnalysisApi', transcript_path, {})
+    API.get('VizonAnalysisApi', transcript_path, {})
       .then(function(data) {
           self.setState({
               "transcript": data.Transcripts[0].Transcript
@@ -496,7 +496,7 @@ class Result extends Component {
     var self = this;
     var entities_path = ['/lookup',this.props.match.params.objectid,'entities'].join('/');
     var entity_list = [];
-    API.get('MediaAnalysisApi', entities_path, {})
+    API.get('VizonAnalysisApi', entities_path, {})
       .then(function(data) {
           for (var e in data.Entities) {
               entity_list.push({"Name":data.Entities[e].Name, "Confidence":data.Entities[e].Impressions[0].Score*100, "Id":[data.Entities[e].Name.replace(/[^\w\s]|_/g, " ").replace(/\s+/g, " "),uuidv4()].join('-')});
@@ -514,7 +514,7 @@ class Result extends Component {
     var self = this;
     var phrases_path = ['/lookup',this.props.match.params.objectid,'phrases'].join('/');
     var phrase_list = [];
-    API.get('MediaAnalysisApi', phrases_path, {})
+    API.get('VizonAnalysisApi', phrases_path, {})
       .then(function(data) {
           for (var p in data.Phrases) {
               phrase_list.push({"Name":data.Phrases[p].Name, "Confidence":data.Phrases[p].Impressions[0].Score*100, "Id":[data.Phrases[p].Name.replace(/[^\w\s]|_/g, " ").replace(/\s+/g, " "),uuidv4()].join('-')});
@@ -544,7 +544,7 @@ class Result extends Component {
         });
 
         var phrases = this.state.phrase_list.map(phrase => {
-          //bugfix/media-analysis-75 button Ids cannot start with a digits
+          //bugfix/vizon-analysis-75 button Ids cannot start with a digits
             if (phrase.Id.match(/^\d/)) {
               phrase.Id = 'n'+phrase.Id;
             }
@@ -560,7 +560,7 @@ class Result extends Component {
         });
 
         var entities = this.state.entity_list.map(entity => {
-          //bugfix/media-analysis-75 button Ids cannot start with a digits
+          //bugfix/vizon-analysis-75 button Ids cannot start with a digits
             if (entity.Id.match(/^\d/)) {
               entity.Id = 'n'+entity.Id;
             }
@@ -584,7 +584,7 @@ class Result extends Component {
                 Error
               </Alert>
               <Modal isOpen={this.state.downloading}>
-                <ModalHeader>Retrieving Media File</ModalHeader>
+                <ModalHeader>Retrieving Vizon File</ModalHeader>
                 <ModalBody>
                   <div>Downloading</div>
                   <Progress animated color="warning" value="100" />
@@ -602,7 +602,7 @@ class Result extends Component {
                 Error
               </Alert>
               <Modal isOpen={this.state.downloading}>
-                <ModalHeader>Retrieving Media File</ModalHeader>
+                <ModalHeader>Retrieving Vizon File</ModalHeader>
                 <ModalBody>
                   <div>Downloading</div>
                   <Progress animated color="warning" value="100" />
@@ -620,7 +620,7 @@ class Result extends Component {
                 Error
               </Alert>
               <Modal isOpen={this.state.downloading}>
-                <ModalHeader>Retrieving Media File</ModalHeader>
+                <ModalHeader>Retrieving Vizon File</ModalHeader>
                 <ModalBody>
                   <div>Downloading</div>
                   <Progress animated color="warning" value="100" />

@@ -1,5 +1,5 @@
 {
-    "name": "media-analysis-api",
+    "name": "vizon-analysis-api",
     "description": "A microservice for handling requests from API Gateway",
     "main": "index.js",
     "author": {
@@ -28,6 +28,6 @@
         "build:copy": "cp index.js dist/ && cp -r lib/*.js dist/lib",
         "build:install": "cp package.json dist/ && cd dist && npm install --production",
         "build": "npm-run-all -s build-init build:copy build:install",
-        "zip": "cd dist && zip -rq media-analysis-api.zip ."
+        "zip": "cd dist && zip -rq vizon-analysis-api.zip ."
     }
 }

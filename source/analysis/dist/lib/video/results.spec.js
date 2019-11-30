@@ -12,7 +12,7 @@ describe('Results', function() {
     let event_info = {
       "owner_id": "us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74",
       "object_id": "33451416-a313-4d30-ae23-82da4cb3c89d",
-      "key": "private/us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74/media/33451416-a313-4d30-ae23-82da4cb3c89d/content/video.mov",
+      "key": "private/us-east-1:56af0fcb-0b48-412c-8546-0d1e89431a74/vizon/33451416-a313-4d30-ae23-82da4cb3c89d/content/video.mov",
       "file_type": "mov",
       "video": {
           "job_id": "98hf230hfpewojdsmdp2f627dg8329hdd3as34j438098hg",

@@ -151,8 +151,8 @@ const confidence_score = parseInt(process.env.CONFIDENCE_SCORE);
      /**
       * Gets results from Amazon Rekognition label detection
       * @param {JSON} params - information needed to retrieve results
-      * @param {string} owner_id - cognitoIdentityId of the media file owner
-      * @param {string} object_id - UUID of the media file
+      * @param {string} owner_id - cognitoIdentityId of the vizon file owner
+      * @param {string} object_id - UUID of the vizon file
       * @param {int} loop_count - retrieval count
       * @param {array} labels - label metadata extracted
       * @param {getLabels~callback} cb - The callback that handles the response.
@@ -173,11 +173,11 @@ const confidence_score = parseInt(process.env.CONFIDENCE_SCORE);
                     }
                 }
 
-                let label_key = ['private',owner_id,'media',object_id,'results','labels.json'].join('/');
+                let label_key = ['private',owner_id,'vizon',object_id,'results','labels.json'].join('/');
 
                 if (loop_count != 1) {
                     let filename = ['labels',loop_count,'.json'].join('');
-                    label_key = ['private',owner_id,'media',object_id,'results',filename].join('/');
+                    label_key = ['private',owner_id,'vizon',object_id,'results',filename].join('/');
                 }
 
                 let s3_params = {
@@ -197,7 +197,7 @@ const confidence_score = parseInt(process.env.CONFIDENCE_SCORE);
                           label_response = {'duration': data.VideoMetadata.DurationMillis, 'labels': label_array, 'status': 'IN PROGRESS', 'loop_count':loop_count += 1, 'next_token':data.NextToken};
                       }
                       else {
-                          label_response = {'duration': data.VideoMetadata.DurationMillis, 'labels': label_array.splice(0,500), 'status': 'COMPLETE', 'key': ['private',owner_id,'media',object_id,'results','labels.json'].join('/')};
+                          label_response = {'duration': data.VideoMetadata.DurationMillis, 'labels': label_array.splice(0,500), 'status': 'COMPLETE', 'key': ['private',owner_id,'vizon',object_id,'results','labels.json'].join('/')};
                       }
                       console.log(label_response);
                       return cb(null,label_response);
@@ -210,8 +210,8 @@ const confidence_score = parseInt(process.env.CONFIDENCE_SCORE);
      /**
       * Gets results from Amazon Rekognition celebrity detection
       * @param {JSON} params - information needed to retrieve results
-      * @param {string} owner_id - cognitoIdentityId of the media file owner
-      * @param {string} object_id - UUID of the media file
+      * @param {string} owner_id - cognitoIdentityId of the vizon file owner
+      * @param {string} object_id - UUID of the vizon file
       * @param {int} loop_count - retrieval count
       * @param {array} celebs - celeb metadata extracted
       * @param {getCelebs~callback} cb - The callback that handles the response.
@@ -232,11 +232,11 @@ const confidence_score = parseInt(process.env.CONFIDENCE_SCORE);
                       }
                 }
 
-                let celeb_key = ['private',owner_id,'media',object_id,'results','celebs.json'].join('/');
+                let celeb_key = ['private',owner_id,'vizon',object_id,'results','celebs.json'].join('/');
 
                 if (loop_count != 1) {
                     let filename = ['celebs',loop_count,'.json'].join('');
-                    celeb_key = ['private',owner_id,'media',object_id,'results',filename].join('/');
+                    celeb_key = ['private',owner_id,'vizon',object_id,'results',filename].join('/');
                 }
 
                 let s3_params = {
@@ -256,7 +256,7 @@ const confidence_score = parseInt(process.env.CONFIDENCE_SCORE);
                           celeb_response = {'duration': data.VideoMetadata.DurationMillis, 'celebs': celeb_array, 'status': 'IN PROGRESS', 'loop_count':loop_count += 1, 'next_token':data.NextToken};
                       }
                       else {
-                          celeb_response = {'duration': data.VideoMetadata.DurationMillis, 'key': ['private',owner_id,'media',object_id,'results','celebs.json'].join('/'), 'celebs': celeb_array, 'status': 'COMPLETE'};
+                          celeb_response = {'duration': data.VideoMetadata.DurationMillis, 'key': ['private',owner_id,'vizon',object_id,'results','celebs.json'].join('/'), 'celebs': celeb_array, 'status': 'COMPLETE'};
                       }
                       console.log(celeb_response);
                       return cb(null,celeb_response);
@@ -269,8 +269,8 @@ const confidence_score = parseInt(process.env.CONFIDENCE_SCORE);
      /**
       * Gets results from Amazon Rekognition face detection
       * @param {JSON} params - information needed to retrieve results
-      * @param {string} owner_id - cognitoIdentityId of the media file owner
-      * @param {string} object_id - UUID of the media file
+      * @param {string} owner_id - cognitoIdentityId of the vizon file owner
+      * @param {string} object_id - UUID of the vizon file
       * @param {int} loop_count - retrieval count
       * @param {array} faces - face metadata extracted
       * @param {getFaces~callback} cb - The callback that handles the response.
@@ -338,11 +338,11 @@ const confidence_score = parseInt(process.env.CONFIDENCE_SCORE);
 
                 console.log('metadata extracted, putting to s3');
 
-                let face_key = ['private',owner_id,'media',object_id,'results','faces.json'].join('/');
+                let face_key = ['private',owner_id,'vizon',object_id,'results','faces.json'].join('/');
 
                 if (loop_count != 1) {
                     let filename = ['faces',loop_count,'.json'].join('');
-                    face_key = ['private',owner_id,'media',object_id,'results',filename].join('/');
+                    face_key = ['private',owner_id,'vizon',object_id,'results',filename].join('/');
                 }
                 let s3_params = {
                     Bucket: s3Bucket,
@@ -362,7 +362,7 @@ const confidence_score = parseInt(process.env.CONFIDENCE_SCORE);
                           face_response = {'duration': data.VideoMetadata.DurationMillis, 'faces': face_array, 'status': 'IN PROGRESS', 'loop_count':loop_count += 1, 'next_token':data.NextToken};
                       }
                       else {
-                          face_response = {'duration': data.VideoMetadata.DurationMillis, 'key': ['private',owner_id,'media',object_id,'results','faces.json'].join('/'), 'faces': face_array, 'faces_detected': (metadata != 0), 'status': 'COMPLETE'};
+                          face_response = {'duration': data.VideoMetadata.DurationMillis, 'key': ['private',owner_id,'vizon',object_id,'results','faces.json'].join('/'), 'faces': face_array, 'faces_detected': (metadata != 0), 'status': 'COMPLETE'};
                       }
                       console.log(face_response);
                       return cb(null,face_response);
@@ -375,8 +375,8 @@ const confidence_score = parseInt(process.env.CONFIDENCE_SCORE);
      /**
       * Gets results from Amazon Rekognition 
       * @param {JSON} params - information needed to retrieve results
-      * @param {string} owner_id - cognitoIdentityId of the media file owner
-      * @param {string} object_id - UUID of the media file
+      * @param {string} owner_id - cognitoIdentityId of the vizon file owner
+      * @param {string} object_id - UUID of the vizon file
       * @param {int} loop_count - retrieval count
       * @param {getPersons~callback} cb - The callback that handles the response.
       */
@@ -387,10 +387,10 @@ const confidence_score = parseInt(process.env.CONFIDENCE_SCORE);
                 return cb(err, null);
             }
             else {
-                let persons_key = ['private',owner_id,'media',object_id,'results','persons.json'].join('/');
+                let persons_key = ['private',owner_id,'vizon',object_id,'results','persons.json'].join('/');
                 if (loop_count != 1) {
                     let filename = ['persons',loop_count,'.json'].join('');
-                    persons_key = ['private',owner_id,'media',object_id,'results',filename].join('/');
+                    persons_key = ['private',owner_id,'vizon',object_id,'results',filename].join('/');
                 }
                 let s3_params = {
                     Bucket: s3Bucket,
@@ -409,7 +409,7 @@ const confidence_score = parseInt(process.env.CONFIDENCE_SCORE);
                           persons_response = {'duration': data.VideoMetadata.DurationMillis, 'status': 'IN PROGRESS', 'loop_count':loop_count += 1, 'next_token':data.NextToken};
                       }
                       else {
-                          persons_response = {'duration': data.VideoMetadata.DurationMillis, 'key': ['private',owner_id,'media',object_id,'results','persons.json'].join('/'), 'status': 'COMPLETE'};
+                          persons_response = {'duration': data.VideoMetadata.DurationMillis, 'key': ['private',owner_id,'vizon',object_id,'results','persons.json'].join('/'), 'status': 'COMPLETE'};
                       }
                       console.log(persons_response);
                       return cb(null,persons_response);
@@ -422,8 +422,8 @@ const confidence_score = parseInt(process.env.CONFIDENCE_SCORE);
      /**
       * Gets results from Amazon Rekognition celebrity detection
       * @param {JSON} params - information needed to retrieve results
-      * @param {string} owner_id - cognitoIdentityId of the media file owner
-      * @param {string} object_id - UUID of the media file
+      * @param {string} owner_id - cognitoIdentityId of the vizon file owner
+      * @param {string} object_id - UUID of the vizon file
       * @param {int} loop_count - retrieval count
       * @param {array} face_matches - face match metadata extracted
       * @param {getCelebs~callback} cb - The callback that handles the response.
@@ -451,11 +451,11 @@ const confidence_score = parseInt(process.env.CONFIDENCE_SCORE);
                     }
                 }
 
-                let face_match_key = ['private',owner_id,'media',object_id,'results','face_matches.json'].join('/');
+                let face_match_key = ['private',owner_id,'vizon',object_id,'results','face_matches.json'].join('/');
 
                 if (loop_count != 1) {
                     let filename = ['face_matches',loop_count,'.json'].join('');
-                    face_match_key = ['private',owner_id,'media',object_id,'results',filename].join('/');
+                    face_match_key = ['private',owner_id,'vizon',object_id,'results',filename].join('/');
                 }
 
                 let s3_params = {
@@ -475,7 +475,7 @@ const confidence_score = parseInt(process.env.CONFIDENCE_SCORE);
                           face_match_response = {'duration': data.VideoMetadata.DurationMillis, 'face_matches': face_match_array, 'status': 'IN PROGRESS', 'loop_count':loop_count += 1, 'next_token':data.NextToken};
                       }
                       else {
-                          face_match_response = {'duration': data.VideoMetadata.DurationMillis, 'key': ['private',owner_id,'media',object_id,'results','face_matches.json'].join('/'), 'face_matches': face_match_array, 'status': 'COMPLETE'};
+                          face_match_response = {'duration': data.VideoMetadata.DurationMillis, 'key': ['private',owner_id,'vizon',object_id,'results','face_matches.json'].join('/'), 'face_matches': face_match_array, 'status': 'COMPLETE'};
                       }
                       console.log(face_match_response);
                       return cb(null,face_match_response);
