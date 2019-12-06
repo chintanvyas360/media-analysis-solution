@@ -1,3 +1,0 @@
-'use strict';
-
-const media_analysis_config = {"SOLUTION_REGION":"us-east-1","SOLUTION_USERPOOLID":"us-east-1_fa4Bsdlom","SOLUTION_USERPOOLWEBCLIENTID":"7jcth4qbsj0vd46eqevtq1cefn","SOLUTION_IDENTITYPOOLID":"us-east-1:20ec3013-388a-4ad5-bb05-5d949907c95b","SOLUTION_BUCKET":"vizon-analysis-us-east-1-544532723754","SOLUTION_ENDPOINT":"https://ksuo8q9js2.execute-api.us-east-1.amazonaws.com/prod","SOLUTION_CONSOLE_LINK":"https://console.aws.amazon.com/states/home?region=us-east-1#/executions/details/arn:aws:states:us-east-1:544532723754:execution:vizon-analysis-state-machine"};
