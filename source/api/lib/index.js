@@ -9,11 +9,11 @@
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES * 
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    * 
  *  and limitations under the License.                                                                                * 
- *********************************************************************************************************************/ 
- 
+ *********************************************************************************************************************/
+
 /** 
  * @author Solution Builders 
- */ 
+ */
 
 'use strict';
 
@@ -22,8 +22,9 @@ let Search = require('./search.js');
 let Lookup = require('./lookup.js');
 let Status = require('./status.js');
 let Details = require('./details.js');
+let Deletemedia = require('./deletemedia.js');
 
-module.exports.respond = function(event, cb) {
+module.exports.respond = function (event, cb) {
     console.log(event);
 
     let _response = {};
@@ -36,7 +37,7 @@ module.exports.respond = function(event, cb) {
 
     if (event.resource === '/search') {
         let _search = new Search();
-        _search.search(event.queryStringParameters.searchterm, Number(event.queryStringParameters.page), event.requestContext.identity.cognitoIdentityId, function(err, data) {
+        _search.search(event.queryStringParameters.searchterm, Number(event.queryStringParameters.page), event.requestContext.identity.cognitoIdentityId, function (err, data) {
             if (err) {
                 console.log(err);
                 _response = buildOutput(500, err);
@@ -50,7 +51,7 @@ module.exports.respond = function(event, cb) {
     }
     else if (event.resource == '/status/{object_id}') {
         let _status = new Status();
-        _status.getStatus(event.pathParameters.object_id, event.requestContext.identity.cognitoIdentityId, function(err, data) {
+        _status.getStatus(event.pathParameters.object_id, event.requestContext.identity.cognitoIdentityId, function (err, data) {
             if (err) {
                 console.log(err);
                 _response = buildOutput(500, err);
@@ -70,12 +71,12 @@ module.exports.respond = function(event, cb) {
         let page_num;
 
         if (event.queryStringParameters != null) {
-          if (event.queryStringParameters.hasOwnProperty('page')) {
-              page_num = event.queryStringParameters.page;
-          }
-          else {
-              page_num = 1;
-          }
+            if (event.queryStringParameters.hasOwnProperty('page')) {
+                page_num = event.queryStringParameters.page;
+            }
+            else {
+                page_num = 1;
+            }
         }
         else {
             page_num = 1;
@@ -116,7 +117,7 @@ module.exports.respond = function(event, cb) {
 
         let _lookup = new Lookup();
         console.log(lookup_type);
-        _lookup.getDetails(object_id,lookup_type, event.requestContext.identity.cognitoIdentityId, Number(page_num), function(err, data) {
+        _lookup.getDetails(object_id, lookup_type, event.requestContext.identity.cognitoIdentityId, Number(page_num), function (err, data) {
             if (err) {
                 console.log(err);
                 _response = buildOutput(500, err);
@@ -131,7 +132,29 @@ module.exports.respond = function(event, cb) {
 
     else if (event.resource == '/details/{object_id}') {
         let _details = new Details();
-        _details.getDocument(event.pathParameters.object_id, event.requestContext.identity.cognitoIdentityId, function(err, data) {
+        _details.getDocument(event.pathParameters.object_id, event.requestContext.identity.cognitoIdentityId, function (err, data) {
+            if (err) {
+                console.log(err);
+                _response = buildOutput(500, err);
+                return cb(_response, null);
+            }
+            else {
+                console.log(data);
+                _response = buildOutput(200, data);
+                return cb(null, _response);
+            }
+        });
+    }
+    else if (event.resource == '/deletemedia') {
+        console.log("delete media resource invoked")
+        console.log("event in index")
+        console.log(event)
+        console.log("event body")
+        console.log(event.body)
+        let _deletemedia = new Deletemedia();
+        let eventBody = JSON.parse(event.body);
+        let object_id = eventBody.object_id;
+        _deletemedia.purgeData(object_id, event.requestContext.identity.cognitoIdentityId, function (err, data) {
             if (err) {
                 console.log(err);
                 _response = buildOutput(500, err);

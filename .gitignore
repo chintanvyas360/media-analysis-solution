@@ -6,3 +6,5 @@ source/helper/dist/
 source/helper/node_modules/
 source/web_site/build/
 source/web_site/node_modules/
+source/web_site/regional-s3-assets
+source/web_site/global-s3-assets

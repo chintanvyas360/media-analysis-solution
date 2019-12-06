@@ -9,21 +9,21 @@
  *  or in the 'license' file accompanying this file. This file is distributed on an 'AS IS' BASIS, WITHOUT WARRANTIES * 
  *  OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions    * 
  *  and limitations under the License.                                                                                * 
- *********************************************************************************************************************/ 
- 
+ *********************************************************************************************************************/
+
 /** 
  * @author Solution Builders 
- */ 
+ */
 
 'use strict';
 
 console.log('Loading function');
 let lib = require('./lib');
 
-exports.handler = function(event, context, callback) {
+module.exports.handler = function (event, context, callback) {
     console.log(event);
 
-    lib.respond(event, function(error, response) {
+    lib.respond(event, function (error, response) {
         if (error) {
             console.log('this is the error in the root index file');
             console.error(error);

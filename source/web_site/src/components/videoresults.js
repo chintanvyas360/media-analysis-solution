@@ -189,7 +189,7 @@ class VideoResults extends Component {
 
   render() {
 
-    var file_type = this.props.filetype;
+    // var file_type = this.props.filetype;
 
     //BUGFIX/vizon-analysis-35 mp4 and mov results are the same, removing if (mov) {}
       //var self = this;
@@ -205,16 +205,16 @@ class VideoResults extends Component {
 
 
 
-      var atts = this.props.attributes.map(att => {
-          return(<Button color="primary" className="ml-1 mr-1 mb-1 mt-1" onClick={() => {this.setState({focusing:att.Name, boxes: att.Impressions});}}>{att.Name}</Button>)
+      var atts = this.props.attributes.map((att,key) => {
+          return(<Button key={key} color="primary" className="ml-1 mr-1 mb-1 mt-1" onClick={() => {this.setState({focusing:att.Name, boxes: att.Impressions});}}>{att.Name}</Button>)
       });
 
-      var celebs = this.props.individualcelebs.map(celeb => {
-          return(<Button color="primary" className="ml-1 mr-1 mb-1 mt-1" onClick={() => {this.setState({focusing:celeb.Name, boxes: celeb.Impressions});}}>{celeb.Name}</Button>)
+      var celebs = this.props.individualcelebs.map((celeb,key) => {
+          return(<Button key={key} color="primary" className="ml-1 mr-1 mb-1 mt-1" onClick={() => {this.setState({focusing:celeb.Name, boxes: celeb.Impressions});}}>{celeb.Name}</Button>)
       });
 
-      var face_matches = this.props.individualknownfaces.map(face => {
-          return(<Button color="primary" className="ml-1 mr-1 mb-1 mt-1" onClick={() => {this.setState({focusing:face.Name, boxes: face.Impressions});}}>{face.Name}</Button>)
+      var face_matches = this.props.individualknownfaces.map((face,key) => {
+          return(<Button key={key} color="primary" className="ml-1 mr-1 mb-1 mt-1" onClick={() => {this.setState({focusing:face.Name, boxes: face.Impressions});}}>{face.Name}</Button>)
       });
 
       return (

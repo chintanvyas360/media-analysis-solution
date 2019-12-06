@@ -4,13 +4,13 @@ import { Container, Row, Col, TabContent, TabPane, Nav, NavItem, NavLink, Button
 
 class ImageResults extends Component {
   constructor(props) {
-	    super(props);
-      this.state = {
-        activeTab: 'labels'
-      }
-      this.tabToggle = this.tabToggle.bind(this);
-      this.draw = this.draw.bind(this);
+    super(props);
+    this.state = {
+      activeTab: 'labels'
     }
+    this.tabToggle = this.tabToggle.bind(this);
+    this.draw = this.draw.bind(this);
+  }
 
 
   componentDidMount() {
@@ -18,9 +18,9 @@ class ImageResults extends Component {
 
   tabToggle(tab) {
     if (this.state.activeTab !== tab) {
-        this.setState({
-          activeTab: tab
-        });
+      this.setState({
+        activeTab: tab
+      });
     }
   }
 
@@ -30,79 +30,79 @@ class ImageResults extends Component {
     var canvas = document.getElementById("resultcanvas");
 
     if (canvas == null) {
-        //Canvas does not yet exist
+      //Canvas does not yet exist
 
-        //Create canvas
-        canvas = document.createElement('canvas');
+      //Create canvas
+      canvas = document.createElement('canvas');
 
-        //Configure canvas
-        canvas.id = "resultcanvas";
-        canvas.width = image.width;
-        canvas.height = image.height;
-        //canvas.style.maxWidth="750px";
-        //canvas.style.maxHeight="400px";
-        canvas.style.position = "relative";
+      //Configure canvas
+      canvas.id = "resultcanvas";
+      canvas.width = image.width;
+      canvas.height = image.height;
+      //canvas.style.maxWidth="750px";
+      //canvas.style.maxHeight="400px";
+      canvas.style.position = "relative";
 
-        //Draw image
-        var context = canvas.getContext('2d');
-        context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      //Draw image
+      var context = canvas.getContext('2d');
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
 
-        for (var i in items) {
-            let h = canvas.height * items[i].Face.BoundingBox.Height;
-            let w = canvas.width * items[i].Face.BoundingBox.Width;
-            let l = canvas.width * items[i].Face.BoundingBox.Left;
-            let t = canvas.height * items[i].Face.BoundingBox.Top;
+      for (var i in items) {
+        let h = canvas.height * items[i].Face.BoundingBox.Height;
+        let w = canvas.width * items[i].Face.BoundingBox.Width;
+        let l = canvas.width * items[i].Face.BoundingBox.Left;
+        let t = canvas.height * items[i].Face.BoundingBox.Top;
 
-            context.beginPath();
-            context.rect(l, t, w, h);
-            context.lineWidth = 2;
-            context.strokeStyle = 'red';
-            context.stroke();
+        context.beginPath();
+        context.rect(l, t, w, h);
+        context.lineWidth = 2;
+        context.strokeStyle = 'red';
+        context.stroke();
 
-            if ("Confidence" in items[i]) {
-              context.font = "15px Comic Sans MS";
-              context.fillStyle = "red";
-              context.fillText(items[i].Confidence.toFixed(3), l, t-2);
-            }
+        if ("Confidence" in items[i]) {
+          context.font = "15px Comic Sans MS";
+          context.fillStyle = "red";
+          context.fillText(items[i].Confidence.toFixed(3), l, t - 2);
         }
+      }
 
-        //Hide image
-        image.style.display='none';
+      //Hide image
+      image.style.display = 'none';
 
-        //Append canvas to div
-        div.appendChild(canvas);
+      //Append canvas to div
+      div.appendChild(canvas);
 
 
     }
     else {
-        //Canvas already exists
+      //Canvas already exists
 
-        //Clear canvas
-        var context = canvas.getContext('2d');
-        context.clearRect(0, 0, canvas.width, canvas.height);
+      //Clear canvas
+      var context = canvas.getContext('2d');
+      context.clearRect(0, 0, canvas.width, canvas.height);
 
-        //Draw image
-        context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      //Draw image
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
 
-        //Draw rectangle
+      //Draw rectangle
 
-        for (var i in items) {
-            let h = canvas.height * items[i].Face.BoundingBox.Height;
-            let w = canvas.width * items[i].Face.BoundingBox.Width;
-            let l = canvas.width * items[i].Face.BoundingBox.Left;
-            let t = canvas.height * items[i].Face.BoundingBox.Top;
+      for (var i in items) {
+        let h = canvas.height * items[i].Face.BoundingBox.Height;
+        let w = canvas.width * items[i].Face.BoundingBox.Width;
+        let l = canvas.width * items[i].Face.BoundingBox.Left;
+        let t = canvas.height * items[i].Face.BoundingBox.Top;
 
-            context.beginPath();
-            context.rect(l, t, w, h);
-            context.lineWidth = 2;
-            context.strokeStyle = 'red';
-            context.stroke();
-            if ("Confidence" in items[i]) {
-              context.font = "15px Comic Sans MS";
-              context.fillStyle = "red";
-              context.fillText(items[i].Confidence.toFixed(3), l, t-2);
-            }
+        context.beginPath();
+        context.rect(l, t, w, h);
+        context.lineWidth = 2;
+        context.strokeStyle = 'red';
+        context.stroke();
+        if ("Confidence" in items[i]) {
+          context.font = "15px Comic Sans MS";
+          context.fillStyle = "red";
+          context.fillText(items[i].Confidence.toFixed(3), l, t - 2);
         }
+      }
     }
   }
 
@@ -112,89 +112,83 @@ class ImageResults extends Component {
     var canvas = document.getElementById("resultcanvas");
 
     if (canvas == null) {
-        //Canvas does not yet exist
+      //Canvas does not yet exist
 
-        //Create canvas
-        canvas = document.createElement('canvas');
+      //Create canvas
+      canvas = document.createElement('canvas');
 
-        //Configure canvas
-        canvas.id = "resultcanvas";
-        canvas.width = image.width;
-        canvas.height = image.height;
-        //canvas.style.maxWidth="750px";
-        //canvas.style.maxHeight="400px";
-        canvas.style.position = "relative";
+      //Configure canvas
+      canvas.id = "resultcanvas";
+      canvas.width = image.width;
+      canvas.height = image.height;
+      //canvas.style.maxWidth="750px";
+      //canvas.style.maxHeight="400px";
+      canvas.style.position = "relative";
 
-        //Draw image
-        var context = canvas.getContext('2d');
-        context.drawImage(image, 0, 0, canvas.width, canvas.height);
-
-        for (var i in items) {
-          for(var j in items[i].Impressions) {
-            for (var k in items[i].Impressions[j].Instances) {
-              let h = canvas.height * items[i].Impressions[j].Instances[k].BoundingBox.Height;
-              let w = canvas.width * items[i].Impressions[j].Instances[k].BoundingBox.Width;
-              let l = canvas.width * items[i].Impressions[j].Instances[k].BoundingBox.Left;
-              let t = canvas.height * items[i].Impressions[j].Instances[k].BoundingBox.Top;
-
-              context.beginPath();
-              context.rect(l, t, w, h);
-              context.lineWidth = 2;
-              context.strokeStyle = 'red';
-              context.stroke();
-
-              if ("Confidence" in items[i].Impressions[j].Instances[k]) {
-                context.font = "15px Comic Sans MS";
-                context.fillStyle = "red";
-                context.fillText(items[i].Name+", "+items[i].Impressions[j].Instances[k].Confidence.toFixed(3), l, t-2);
-              }
+      //Draw image
+      var context = canvas.getContext('2d');
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      for (var i in items) {
+        for (var j in items[i].Impressions) {
+          for (var k in items[i].Impressions[j].Instances) {
+            let h = canvas.height * items[i].Impressions[j].Instances[k].BoundingBox.Height;
+            let w = canvas.width * items[i].Impressions[j].Instances[k].BoundingBox.Width;
+            let l = canvas.width * items[i].Impressions[j].Instances[k].BoundingBox.Left;
+            let t = canvas.height * items[i].Impressions[j].Instances[k].BoundingBox.Top;
+            context.beginPath();
+            context.rect(l, t, w, h);
+            context.lineWidth = 2;
+            context.strokeStyle = 'red';
+            context.stroke();
+            if ("Confidence" in items[i].Impressions[j].Instances[k]) {
+              context.font = "15px Comic Sans MS";
+              context.fillStyle = "red";
+              context.fillText(items[i].Name + ", " + items[i].Impressions[j].Instances[k].Confidence.toFixed(3), l, t - 2);
             }
           }
         }
+      }
 
-        //Hide image
-        image.style.display='none';
+      //Hide image
+      image.style.display = 'none';
 
-        //Append canvas to div
-        div.appendChild(canvas);
+      //Append canvas to div
+      div.appendChild(canvas);
 
 
     }
     else {
-        //Canvas already exists
+      //Canvas already exists
 
-        //Clear canvas
-        var context = canvas.getContext('2d');
-        context.clearRect(0, 0, canvas.width, canvas.height);
+      //Clear canvas
+      var context = canvas.getContext('2d');
+      context.clearRect(0, 0, canvas.width, canvas.height);
 
-        //Draw image
-        context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      //Draw image
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
 
-        //Draw rectangle
-
-        for (var i in items) {
-          for(var j in items[i].Impressions) {
-            for (var k in items[i].Impressions[j].Instances) {
-              let h = canvas.height * items[i].Impressions[j].Instances[k].BoundingBox.Height;
-              let w = canvas.width * items[i].Impressions[j].Instances[k].BoundingBox.Width;
-              let l = canvas.width * items[i].Impressions[j].Instances[k].BoundingBox.Left;
-              let t = canvas.height * items[i].Impressions[j].Instances[k].BoundingBox.Top;
-
-              context.beginPath();
-              context.rect(l, t, w, h);
-              context.lineWidth = 2;
-              context.strokeStyle = 'red';
-              context.stroke();
-              console.log("not working")
-              if ("Confidence" in items[i].Impressions[j].Instances) {
-                console.log("went?")
-                context.font = "15px Comic Sans MS";
-                context.fillStyle = "red";
-                context.fillText(items[i].Name+", "+items[i].Impressions[j].Instances[k].Confidence.toFixed(3), l, t-2);
-              }
+      //Draw rectangle
+      console.log("gone 5")
+      for (var i in items) {
+        for (var j in items[i].Impressions) {
+          for (var k in items[i].Impressions[j].Instances) {
+            let h = canvas.height * items[i].Impressions[j].Instances[k].BoundingBox.Height;
+            let w = canvas.width * items[i].Impressions[j].Instances[k].BoundingBox.Width;
+            let l = canvas.width * items[i].Impressions[j].Instances[k].BoundingBox.Left;
+            let t = canvas.height * items[i].Impressions[j].Instances[k].BoundingBox.Top;
+            context.beginPath();
+            context.rect(l, t, w, h);
+            context.lineWidth = 2;
+            context.strokeStyle = 'red';
+            context.stroke();
+            if ("Confidence" in items[i].Impressions[j].Instances[k]) {
+              context.font = "15px Comic Sans MS";
+              context.fillStyle = "red";
+              context.fillText(items[i].Name + ", " + items[i].Impressions[j].Instances[k].Confidence.toFixed(3), l, t - 2);
             }
           }
         }
+      }
     }
   }
 
@@ -207,116 +201,116 @@ class ImageResults extends Component {
     var labels_list = this.props.labels_list;
 
 
-    let atts = this.props.attlist.map(att => {
-        return(<Button color="primary" className="ml-1 mr-1 mb-1 mt-1" onClick={() => { this.draw(att.Impressions); }}>{att.Name}</Button>)
+    let atts = this.props.attlist.map((att, key) => {
+      return (<Button key={key} color="primary" className="ml-1 mr-1 mb-1 mt-1" onClick={() => { this.draw(att.Impressions); }}>{att.Name}</Button>)
     });
 
-    let celeb_faces = this.props.celebfaces.map(celeb => {
-        return(<Button color="primary" className="ml-1 mr-1 mb-1 mt-1" onClick={() => { this.draw(celeb.Impressions); }}>{celeb.Name}</Button>)
+    let celeb_faces = this.props.celebfaces.map((celeb, key) => {
+      return (<Button key={key} color="primary" className="ml-1 mr-1 mb-1 mt-1" onClick={() => { this.draw(celeb.Impressions); }}>{celeb.Name}</Button>)
     });
 
-    let known_faces = this.props.knownfaces.map(face => {
-        return(<Button color="primary" className="ml-1 mr-1 mb-1 mt-1" onClick={() => { this.draw(face.Impressions); }}>{face.ExternalImageId}</Button>)
+    let known_faces = this.props.knownfaces.map((face, key) => {
+      return (<Button key={key} color="primary" className="ml-1 mr-1 mb-1 mt-1" onClick={() => { this.draw(face.Impressions); }}>{face.ExternalImageId}</Button>)
     });
 
     var all_celebs = [];
     for (var c in this.props.celebfaces) {
       for (var i in this.props.celebfaces[c].Impressions) {
-          all_celebs.push(this.props.celebfaces[c].Impressions[i]);
+        all_celebs.push(this.props.celebfaces[c].Impressions[i]);
       }
     }
 
     var all_known_faces = [];
     for (var f in this.props.knownfaces) {
-        for (var i in this.props.knownfaces[f].Impressions) {
-            all_known_faces.push(this.props.knownfaces[f].Impressions[i]);
-        }
+      for (var i in this.props.knownfaces[f].Impressions) {
+        all_known_faces.push(this.props.knownfaces[f].Impressions[i]);
+      }
     }
 
 
-        return (
-          <Container>
-            <Row>
-              <Col>
-                <div>
-                  <h1 align="center">{file_name}</h1>
-                </div>
-              </Col>
-            </Row>
-            <Row>
-              <Col md="8">
-                <div id="resultview" align="center" className='mb-3' style={{"overflow":"scroll", "maxWidth":"750px", "maxHeight": "400px"}}>
-                    <img alt="preview" id="resultimage" src={media_source} className="img-fluid"/>
-                </div>
-              </Col>
-              <Col md="4">
-                <div>
-                  <h5>Click to highlight faces:</h5>
-                  <hr className="my-2" />
-                </div>
-                <div align="center">
-                  <Button color="primary" className="mr-2 mt-3" active onClick={() => { this.draw(all_known_faces); }}>Show Known Faces</Button>
-                  <Button color="primary" className="mr-2 mt-3" active onClick={() => { this.draw(this.props.allfaces); }}>Show All Faces</Button>
-                  <Button color="primary" className="mr-2 mt-3" active onClick={() => { this.draw(all_celebs); }}>Show Celebrities</Button>
-                  <Button color="primary" className="mr-2 mt-3" active onClick={() => { this.drawLabels(labels_list);}}>Show All Labels</Button>
-                </div>
-                <div align="center">
-                  <Button color="secondary" className="mt-3" onClick={() => { this.draw([]); }}>Clear All</Button>
-                </div>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <div>
-                  <Nav tabs className="mb-3">
-                    <NavItem>
-                      <NavLink active={this.state.activeTab === "labels"} onClick={() => { this.tabToggle('labels'); }}>Labels</NavLink>
-                    </NavItem>
-                    <NavItem>
-                      <NavLink active={this.state.activeTab === "faces"} onClick={() => { this.tabToggle('faces'); }}>Facial Attributes</NavLink>
-                    </NavItem>
-                    <NavItem>
-                      <NavLink active={this.state.activeTab === "face_matches"} onClick={() => { this.tabToggle('face_matches'); }}>Known Faces</NavLink>
-                    </NavItem>
-                    <NavItem>
-                      <NavLink active={this.state.activeTab === "celebs"} onClick={() => { this.tabToggle('celebs'); }}>Celebrities</NavLink>
-                    </NavItem>
-                  </Nav>
-                  <TabContent activeTab={this.state.activeTab}>
-                    <TabPane tabId="labels">
-                      <Row>
-                        <Col align="center">
-                          {labels}
-                        </Col>
-                      </Row>
-                    </TabPane>
-                    <TabPane tabId="faces">
-                      <Row>
-                        <Col align="center">
-                          {atts}
-                        </Col>
-                      </Row>
-                    </TabPane>
-                    <TabPane tabId="face_matches">
-                      <Row>
-                        <Col align="center">
-                          {known_faces}
-                        </Col>
-                      </Row>
-                    </TabPane>
-                    <TabPane tabId="celebs">
-                      <Row>
-                        <Col align="center">
-                          {celeb_faces}
-                        </Col>
-                      </Row>
-                    </TabPane>
-                  </TabContent>
-                </div>
-              </Col>
-            </Row>
-          </Container>
-        );
+    return (
+      <Container>
+        <Row>
+          <Col>
+            <div>
+              <h1 align="center">{file_name}</h1>
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col md="8">
+            <div id="resultview" align="center" className='mb-3' style={{ "overflow": "scroll", "maxWidth": "750px", "maxHeight": "400px" }}>
+              <img alt="preview" id="resultimage" src={media_source} className="img-fluid" />
+            </div>
+          </Col>
+          <Col md="4">
+            <div>
+              <h5>Click to highlight faces:</h5>
+              <hr className="my-2" />
+            </div>
+            <div align="center">
+              <Button color="primary" className="mr-2 mt-3" active onClick={() => { this.draw(all_known_faces); }}>Show Known Faces</Button>
+              <Button color="primary" className="mr-2 mt-3" active onClick={() => { this.draw(this.props.allfaces); }}>Show All Faces</Button>
+              <Button color="primary" className="mr-2 mt-3" active onClick={() => { this.draw(all_celebs); }}>Show Celebrities</Button>
+              <Button color="primary" className="mr-2 mt-3" active onClick={() => { this.drawLabels(labels_list); }}>Show All Labels</Button>
+            </div>
+            <div align="center">
+              <Button color="secondary" className="mt-3" onClick={() => { this.draw([]); }}>Clear All</Button>
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <div>
+              <Nav tabs className="mb-3">
+                <NavItem>
+                  <NavLink active={this.state.activeTab === "labels"} onClick={() => { this.tabToggle('labels'); }}>Labels</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink active={this.state.activeTab === "faces"} onClick={() => { this.tabToggle('faces'); }}>Facial Attributes</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink active={this.state.activeTab === "face_matches"} onClick={() => { this.tabToggle('face_matches'); }}>Known Faces</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink active={this.state.activeTab === "celebs"} onClick={() => { this.tabToggle('celebs'); }}>Celebrities</NavLink>
+                </NavItem>
+              </Nav>
+              <TabContent activeTab={this.state.activeTab}>
+                <TabPane tabId="labels">
+                  <Row>
+                    <Col align="center">
+                      {labels}
+                    </Col>
+                  </Row>
+                </TabPane>
+                <TabPane tabId="faces">
+                  <Row>
+                    <Col align="center">
+                      {atts}
+                    </Col>
+                  </Row>
+                </TabPane>
+                <TabPane tabId="face_matches">
+                  <Row>
+                    <Col align="center">
+                      {known_faces}
+                    </Col>
+                  </Row>
+                </TabPane>
+                <TabPane tabId="celebs">
+                  <Row>
+                    <Col align="center">
+                      {celeb_faces}
+                    </Col>
+                  </Row>
+                </TabPane>
+              </TabContent>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    );
   }
 }
 

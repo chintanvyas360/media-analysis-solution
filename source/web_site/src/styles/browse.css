@@ -1,0 +1,13 @@
+.browse-header {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+.viewing-results {
+  font-size: 14px;
+}
+
+.pagination-container {
+  margin-left: auto;
+}

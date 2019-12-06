@@ -247,7 +247,7 @@ Resources:
             Handler: index.handler
             Runtime: nodejs8.10
             Role: !GetAtt VizonAnalysisHelperRole.Arn
-            Timeout: 300
+            Timeout: 900
             MemorySize: 256
 
     VizonAnalysisESHelper:

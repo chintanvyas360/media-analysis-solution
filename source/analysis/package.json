@@ -32,6 +32,6 @@
         "build:copy": "cp index.js dist/ && cp -r lib dist",
         "build:install": "cp package.json dist/ && cd dist && npm install --production",
         "build": "npm-run-all -s build-init build:copy build:install",
-        "zip": "cd dist && zip -rq vizon-analysis-function.zip ."
+        "zip": "cd dist && zip vizon-analysis-function.zip -x '/node_modules/*' -rq ."
     }
 }

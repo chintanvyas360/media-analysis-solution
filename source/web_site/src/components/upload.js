@@ -32,6 +32,11 @@ class Upload extends Component {
       this.UploadFace = this.UploadFace.bind(this);
       this.Dismiss = this.Dismiss.bind(this);
       this.toggle = this.toggle.bind(this);
+      this.getVizonAnalysisConfigFromParent = this.getVizonAnalysisConfigFromParent.bind(this);
+    }
+
+    getVizonAnalysisConfigFromParent() {
+      return this.props.getVizonAnalysisConfig();
     }
 
     UploadFace(e) {
@@ -221,7 +226,7 @@ class Upload extends Component {
       <Container>
         <Alert name="error" color="danger" isOpen={this.state.error} toggle={this.Dismiss}>{this.state.error_msg}</Alert>
         <Modal isOpen={this.state.modal_status} toggle={this.toggle}>
-          <StatusModal format={this.state.format} objectid={this.state.object_id}/>
+          <StatusModal format={this.state.format} objectid={this.state.object_id} getVizonAnalysisConfig={this.getVizonAnalysisConfigFromParent}/>
         </Modal>
         <Modal isOpen={this.state.uploading}>
           <ModalHeader>Upload Progress</ModalHeader>
@@ -232,9 +237,9 @@ class Upload extends Component {
         </Modal>
         <Row>
           <Col xs="6">
-              <h1 className="display-6" align="center">Analyze new Vizon</h1>
+              <h1 className="display-6" align="center">Analyze new media</h1>
               <hr className="my-2" />
-              <p className="lead" align="center">Upload new image, video, or audio file to be analyzed by the Vizon Analysis Solution</p>
+              <p className="lead" align="center">Upload new image, video, or audio file to be analyzed</p>
               <div>
                 {media_type === "image" &&
                   <img src={media_file} className="img-fluid border" alt="preview"/>
@@ -252,13 +257,13 @@ class Upload extends Component {
               <div className="mt-3 mb-3">
                 <Form onSubmit={this.Upload}>
                   <div className="form-inline">
-                    <Button type="submit" disabled={this.state.file === ''}>Upload Vizon</Button>
+                    <Button type="submit" disabled={this.state.file === ''}>Upload Media</Button>
                       <FormGroup className="mr-sm-2 ml-sm-4">
                         <Input name="mediafilename" type="text" disabled placeholder={this.state.file.name} />
                       </FormGroup>
                   </div>
                   <FormText color="muted">
-                    Vizon will be uploaded with the same name
+                    Media will be uploaded with the same name
                   </FormText>
                   <FormGroup className="mt-3">
                       <Input type="file" accept="image/png, image/jpeg, audio/mp3, audio/flac, audio/wav, video/quicktime, video/mp4" name="file" value={this.file} onChange={this.Change} />
@@ -267,9 +272,9 @@ class Upload extends Component {
               </div>
           </Col>
           <Col xs="6">
-            <h1 className="display-6"  align="center">Add to Collection</h1>
+            <h1 className="display-6"  align="center">Add to collection of faces</h1>
             <hr className="my-2" />
-            <p className="lead" align="center">Upload new images of faces to be indexed in your Amazon Rekognition collection</p>
+            <p className="lead" align="center">Upload new images of faces to your collection</p>
             <div>
               <img src={face_file} className="img-fluid border" alt="preview"/>
             </div>

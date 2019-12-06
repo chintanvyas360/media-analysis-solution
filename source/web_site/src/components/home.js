@@ -13,12 +13,12 @@ class Home extends Component {
               <h1 className="display-3"  align="center">BeyondVision.ai Demo</h1>
               <hr className="my-2" />
           </Col>
-          <Col>
+          {/*<Col>
               <h3 className="display-5">Architecture</h3>
               <hr />
               <img src={diagram} className="img-fluid" alt="diagram"/>
               <hr />
-          </Col>
+          </Col>*/}
         </Container>
       </div>
 

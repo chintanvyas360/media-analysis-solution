@@ -532,9 +532,9 @@ class Result extends Component {
 
     if (this.state) {
         //var self = this;
-        var labels = this.state.label_list.map(label => {
+        var labels = this.state.label_list.map((label,key) => {
             return(
-              <div style={{"display":"inline-block"}}>
+              <div style={{"display":"inline-block"}} key={key}>
                 <Button id={label.Id.replace(/\s+/g, '-').toLowerCase()} color="secondary" className="ml-1 mr-1 mb-1 mt-1">{label.Name}</Button>
                 <UncontrolledTooltip placement="top" target={label.Id.replace(/\s+/g, '-').toLowerCase()}>
                   {label.Confidence}

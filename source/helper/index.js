@@ -74,7 +74,7 @@ exports.handler = function(event, context, callback) {
             _eshelper.createIndex(event.ResourceProperties.clusterUrl, event.ResourceProperties.es_index, event.ResourceProperties.es_version, function(err, data) {
                 if (err) {
                     console.log(err);
-                    let responseData = {
+                    responseData = {
                       Error: 'Creating the index failed'
                     };
                 }
@@ -130,7 +130,7 @@ exports.handler = function(event, context, callback) {
               event.ResourceProperties.destS3Bucket, function(err, data) {
                 if (err) {
                     console.log(err);
-                    let responseData = {
+                    responseData = {
                       Error: 'Copying S3 assets failed'
                     };
                 }
@@ -158,7 +158,7 @@ exports.handler = function(event, context, callback) {
             _s3helper.putConfig(_content, event.ResourceProperties.destS3Bucket, event.ResourceProperties.destS3Key, function(err, data) {
                 if (err) {
                     console.log(err);
-                    let responseData = {
+                    responseData = {
                       Error: 'Copying S3 assets failed'
                     };
                 }
@@ -182,7 +182,7 @@ exports.handler = function(event, context, callback) {
               event.ResourceProperties.destS3Bucket, function(err, data) {
                 if (err) {
                     console.log(err);
-                    let responseData = {
+                    responseData = {
                       Error: 'Copying S3 assets failed'
                     };
                 }

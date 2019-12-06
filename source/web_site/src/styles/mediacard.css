@@ -1,0 +1,43 @@
+a.media-card .card-header {
+  text-decoration: none;
+}
+
+a.media-card:hover {
+  color: #007bff !important;
+  text-decoration: none;
+}
+
+a.media-card:hover .card {
+  border: 2px solid #007bff8a;
+}
+
+a.media-card:hover .card-header,
+a.media-card:active .card-header,
+a.media-card:focus .card-header {
+  color: #007bff !important;
+  text-decoration: none;
+}
+
+.trash-container {
+  color: #6c757d !important;
+}
+
+.trash-container:hover {
+  color: #dc3545 !important;
+}
+
+.file-type-badge {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.upload-date-badge {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+.upload-time-badge {
+  position: absolute;
+  left: 10px;
+  top: 30px;
+}

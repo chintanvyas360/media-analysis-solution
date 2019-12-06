@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
-import App from './components/App';
+import AppWithAuth from './components/Authwrapper/AppWithAuth';
 import 'bootstrap/dist/css/bootstrap.css'
 import './styles/index.css';
 
 
-render(<App />, document.getElementById('root'))
+render(<AppWithAuth />, document.getElementById('root'))

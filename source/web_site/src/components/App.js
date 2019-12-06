@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import Amplify, { Auth, Storage, API } from 'aws-amplify';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import { NavbarBrand, Navbar, Nav, NavItem, NavLink } from 'reactstrap';
+import Amplify, { Auth, Storage, API, Hub } from 'aws-amplify';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import "../App.css"
 import Home from './home';
 import Upload from './upload';
 import Browse from './browse';
 import Settings from './settings';
 import Result from './result';
 declare var media_analysis_config;
+
 
 Amplify.configure({
   Auth: {
@@ -34,44 +35,29 @@ Amplify.configure({
 
 class App extends Component {
 
-  constructor() {
-    super();
-    this.state = {};
+  constructor(props) {
+    super(props);
+    this.getVizonAnalysisConfig = this.getVizonAnalysisConfig.bind(this);
   }
 
+  componentWillMount() {
+    // console.log(this.props.username);
+  }
+
+  getVizonAnalysisConfig() {
+    return media_analysis_config;
+  }
 
   render() {
     return (
-      <div>
-        <Router>
-          <div>
-            <Navbar color="dark">
-              <NavbarBrand tag={Link} to="/home">BeyondVision.ai</NavbarBrand>
-              <Nav className="ml-auto">
-                <NavItem color="white">
-                  <NavLink tag={Link} to="/upload" className="text-light">Upload</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} to="/browse" className="text-light">Browse</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} to="/settings" className="text-light">Settings</NavLink>
-                </NavItem>
-              </Nav>
-            </Navbar>
-            <hr />
-            <Switch>
-              <Route exact path='/' component={Home} />
-              <Route path='/home' component={Home} />
-              <Route path='/upload' component={Upload} />
-              <Route path='/browse' component={Browse} />
-              <Route path='/settings' component={Settings} />
-              <Route path='/result/:objectid' component={Result} />
-            </Switch>
-          </div>
-        </Router>
-        <hr />
-      </div>
+      <Switch>
+        <Route exact path='/' component={Browse} />
+        <Route path='/home' component={Browse} />
+        <Route path='/upload' render={(props) => <Upload {...props} getVizonAnalysisConfig={this.getVizonAnalysisConfig} />} />
+        <Route path='/browse' component={Browse} />
+        <Route path='/settings' component={Settings} />
+        <Route path='/result/:objectid' component={Result} />
+      </Switch>
     );
   }
 }

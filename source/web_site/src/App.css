@@ -26,3 +26,27 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.bg-dark {
+  background-color: #44529a !important;
+}
+
+.navbar-wrapper {
+  height: auto;
+  width: 100%;
+  background: #44529a !important;
+}
+
+.navbar-wrapper .navbar {
+  background: #44529a !important;
+}
+
+.header-logo {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.navbar-brand, .navbar-brand:hover {
+  color: #fff;
+}

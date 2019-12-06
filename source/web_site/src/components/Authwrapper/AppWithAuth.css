@@ -1,0 +1,34 @@
+.profile-dropdown {
+    right: 0;
+    position: absolute;
+}
+
+
+/* Sign in Button Ovverride tyles */
+.Button__button___vS7Mv {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    opacity: 1;
+}
+
+.Button__button___vS7Mv:hover {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+    opacity: 1;
+}
+
+.Button__button___vS7Mv:not(:disabled):not(.disabled).active, .Button__button___vS7Mv:not(:disabled):not(.disabled):active {
+    color: #fff;
+    background-color: #0062cc;
+    border-color: #005cbf;
+    opacity: 1;
+}
+
+.Button__button___vS7Mv:disabled, .Button__button___vS7Mv.disabled{
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    opacity: 0.65;
+}

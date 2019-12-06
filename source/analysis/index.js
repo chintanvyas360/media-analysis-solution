@@ -20,7 +20,7 @@
 console.log('Loading function');
 let lib = require('./lib');
 
-exports.handler = function(event, context, callback) {
+module.exports.handler = function(event, context, callback) {
 
     lib.respond(event, function(error, response) {
         if (error) {
