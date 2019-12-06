@@ -8,7 +8,6 @@ import audio from '../img/audio.png';
 import video from '../img/video.png';
 import "../styles/mediacard.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 class MediaCard extends Component {
   constructor(props) {
@@ -77,7 +76,7 @@ class MediaCard extends Component {
               <div style={{ "display": "flex", "flexFlow": "row wrap", "alignItems": "center", "justifyContent": "center" }}>
                 <div><h6>{name}</h6></div>
                 <div style={{ "marginLeft": "auto" }} className="trash-container">
-                  <FontAwesomeIcon icon={faTrash} onClick={this.deleteMediaHandler} />
+                  <FontAwesomeIcon icon="trash" onClick={this.deleteMediaHandler} />
                 </div>
               </div>
             </CardHeader>

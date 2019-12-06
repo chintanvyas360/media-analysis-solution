@@ -473,6 +473,7 @@ Resources:
                         Action:
                           - "s3:GetObject"
                           - "s3:PutObject"
+                          - "s3:DeleteObject"
                         Resource:
                           # The bucket name is constructed rather than referenced
                           # due to a circular dependency between the S3 Bucket
@@ -561,6 +562,7 @@ Resources:
                           Action:
                             - "s3:PutObject"
                             - "s3:GetObject"
+                            - "s3:DeleteObject"
                           Resource:
                             - !Join ["",["arn:aws:s3:::", !Ref VizonAnalysisBucket, "/private/${cognito-identity.amazonaws.com:sub}/*"]]
                       -
@@ -568,7 +570,7 @@ Resources:
                           Action:
                             - "execute-api:Invoke"
                           Resource:
-                            - !Join ["",["arn:aws:execute-api:", !Ref "AWS::Region", ":", !Ref "AWS::AccountId", ":", !GetAtt VizonAnalysisApiStack.Outputs.ApiId, "/prod/GET/*"]]
+                            - !Join ["",["arn:aws:execute-api:", !Ref "AWS::Region", ":", !Ref "AWS::AccountId", ":", !GetAtt VizonAnalysisApiStack.Outputs.ApiId, "/prod/*/*"]]
 
     VizonAnalysisIdentityPoolRoleAttachment:
         Type: "AWS::Cognito::IdentityPoolRoleAttachment"

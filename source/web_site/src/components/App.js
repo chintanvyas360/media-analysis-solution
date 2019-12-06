@@ -7,6 +7,10 @@ import Upload from './upload';
 import Browse from './browse';
 import Settings from './settings';
 import Result from './result';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+library.add(faTrash);
+
 declare var media_analysis_config;
 
 
